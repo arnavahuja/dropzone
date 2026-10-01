@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+
+# Local build instructions, not part of the project
+DROPZONE_BUILD_SPEC.md
