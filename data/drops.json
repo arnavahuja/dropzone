@@ -1,0 +1,671 @@
+{
+ "_note": "Server-only seed data. Never serve this file or any field of it to the client.",
+ "drops": [
+  {
+   "lat": 51.5212,
+   "lon": -0.1265,
+   "setting": "city",
+   "label": "Bloomsbury, London, United Kingdom"
+  },
+  {
+   "lat": 48.8422,
+   "lon": 2.3503,
+   "setting": "city",
+   "label": "Rue Mouffetard, Paris, France"
+  },
+  {
+   "lat": 52.4985,
+   "lon": 13.418,
+   "setting": "city",
+   "label": "Kreuzberg, Berlin, Germany"
+  },
+  {
+   "lat": 38.7121,
+   "lon": -9.13,
+   "setting": "city",
+   "label": "Alfama, Lisbon, Portugal"
+  },
+  {
+   "lat": 37.386,
+   "lon": -5.9926,
+   "setting": "city",
+   "label": "Santa Cruz, Seville, Spain"
+  },
+  {
+   "lat": 40.851,
+   "lon": 14.257,
+   "setting": "city",
+   "label": "Spaccanapoli, Naples, Italy"
+  },
+  {
+   "lat": 50.0614,
+   "lon": 19.9372,
+   "setting": "city",
+   "label": "Kazimierz, Krakow, Poland"
+  },
+  {
+   "lat": 59.437,
+   "lon": 24.745,
+   "setting": "city",
+   "label": "Old Town, Tallinn, Estonia"
+  },
+  {
+   "lat": 60.3958,
+   "lon": 5.3245,
+   "setting": "coast",
+   "label": "Bryggen, Bergen, Norway"
+  },
+  {
+   "lat": 47.5622,
+   "lon": 13.6493,
+   "setting": "village",
+   "label": "Hallstatt, Austria"
+  },
+  {
+   "lat": 45.9237,
+   "lon": 6.8694,
+   "setting": "trailhead",
+   "label": "Chamonix, France"
+  },
+  {
+   "lat": 44.135,
+   "lon": 9.684,
+   "setting": "coast",
+   "label": "Vernazza, Cinque Terre, Italy"
+  },
+  {
+   "lat": 52.738,
+   "lon": 6.078,
+   "setting": "farmland",
+   "label": "near Giethoorn, Netherlands"
+  },
+  {
+   "lat": 53.15,
+   "lon": -6.29,
+   "setting": "trailhead",
+   "label": "Wicklow Way, Ireland"
+  },
+  {
+   "lat": 56.676,
+   "lon": -5.103,
+   "setting": "trailhead",
+   "label": "Glencoe, Scotland"
+  },
+  {
+   "lat": 40.99,
+   "lon": 29.027,
+   "setting": "city",
+   "label": "Kadikoy, Istanbul, Turkey"
+  },
+  {
+   "lat": 37.972,
+   "lon": 23.728,
+   "setting": "city",
+   "label": "Plaka, Athens, Greece"
+  },
+  {
+   "lat": 64.145,
+   "lon": -21.933,
+   "setting": "city",
+   "label": "Reykjavik, Iceland"
+  },
+  {
+   "lat": 46.057,
+   "lon": 25.092,
+   "setting": "village",
+   "label": "Viscri, Romania"
+  },
+  {
+   "lat": 48.75,
+   "lon": 30.22,
+   "setting": "farmland",
+   "label": "near Uman, Ukraine"
+  },
+  {
+   "lat": 55.676,
+   "lon": 12.568,
+   "setting": "city",
+   "label": "Indre By, Copenhagen, Denmark"
+  },
+  {
+   "lat": 47.498,
+   "lon": 19.059,
+   "setting": "city",
+   "label": "Pest, Budapest, Hungary"
+  },
+  {
+   "lat": 43.509,
+   "lon": 16.44,
+   "setting": "coast",
+   "label": "Split, Croatia"
+  },
+  {
+   "lat": 46.948,
+   "lon": 7.447,
+   "setting": "city",
+   "label": "Bern, Switzerland"
+  },
+  {
+   "lat": 35.727,
+   "lon": 139.771,
+   "setting": "city",
+   "label": "Yanaka, Tokyo, Japan"
+  },
+  {
+   "lat": 35.0037,
+   "lon": 135.778,
+   "setting": "city",
+   "label": "Gion, Kyoto, Japan"
+  },
+  {
+   "lat": 34.652,
+   "lon": 135.506,
+   "setting": "city",
+   "label": "Shinsekai, Osaka, Japan"
+  },
+  {
+   "lat": 37.8,
+   "lon": 139.0,
+   "setting": "farmland",
+   "label": "near Niigata, Japan"
+  },
+  {
+   "lat": 37.574,
+   "lon": 126.99,
+   "setting": "city",
+   "label": "Ikseon-dong, Seoul, South Korea"
+  },
+  {
+   "lat": 35.158,
+   "lon": 129.16,
+   "setting": "coast",
+   "label": "Haeundae, Busan, South Korea"
+  },
+  {
+   "lat": 25.056,
+   "lon": 121.51,
+   "setting": "city",
+   "label": "Dadaocheng, Taipei, Taiwan"
+  },
+  {
+   "lat": 22.286,
+   "lon": 114.142,
+   "setting": "city",
+   "label": "Sai Ying Pun, Hong Kong"
+  },
+  {
+   "lat": 21.034,
+   "lon": 105.851,
+   "setting": "city",
+   "label": "Old Quarter, Hanoi, Vietnam"
+  },
+  {
+   "lat": 13.723,
+   "lon": 100.488,
+   "setting": "city",
+   "label": "Thonburi, Bangkok, Thailand"
+  },
+  {
+   "lat": 18.788,
+   "lon": 98.993,
+   "setting": "city",
+   "label": "Old City, Chiang Mai, Thailand"
+  },
+  {
+   "lat": 19.889,
+   "lon": 102.135,
+   "setting": "village",
+   "label": "Luang Prabang, Laos"
+  },
+  {
+   "lat": -8.507,
+   "lon": 115.263,
+   "setting": "village",
+   "label": "Ubud, Bali, Indonesia"
+  },
+  {
+   "lat": 26.923,
+   "lon": 75.826,
+   "setting": "city",
+   "label": "Jaipur, India"
+  },
+  {
+   "lat": 25.309,
+   "lon": 83.01,
+   "setting": "city",
+   "label": "Varanasi, India"
+  },
+  {
+   "lat": 27.715,
+   "lon": 85.31,
+   "setting": "city",
+   "label": "Thamel, Kathmandu, Nepal"
+  },
+  {
+   "lat": 28.31,
+   "lon": 83.69,
+   "setting": "trailhead",
+   "label": "Nayapul, Nepal"
+  },
+  {
+   "lat": 6.927,
+   "lon": 79.861,
+   "setting": "city",
+   "label": "Colombo, Sri Lanka"
+  },
+  {
+   "lat": 7.293,
+   "lon": 80.635,
+   "setting": "village",
+   "label": "Kandy, Sri Lanka"
+  },
+  {
+   "lat": 39.654,
+   "lon": 66.975,
+   "setting": "city",
+   "label": "Samarkand, Uzbekistan"
+  },
+  {
+   "lat": 41.694,
+   "lon": 44.808,
+   "setting": "city",
+   "label": "Old Tbilisi, Georgia"
+  },
+  {
+   "lat": 40.179,
+   "lon": 44.499,
+   "setting": "city",
+   "label": "Kentron, Yerevan, Armenia"
+  },
+  {
+   "lat": 33.894,
+   "lon": 35.505,
+   "setting": "city",
+   "label": "Gemmayzeh, Beirut, Lebanon"
+  },
+  {
+   "lat": 31.951,
+   "lon": 35.934,
+   "setting": "city",
+   "label": "Downtown Amman, Jordan"
+  },
+  {
+   "lat": 31.21,
+   "lon": 121.468,
+   "setting": "city",
+   "label": "Tianzifang, Shanghai, China"
+  },
+  {
+   "lat": 30.654,
+   "lon": 104.076,
+   "setting": "city",
+   "label": "Chengdu, China"
+  },
+  {
+   "lat": 26.872,
+   "lon": 100.23,
+   "setting": "village",
+   "label": "Lijiang Old Town, China"
+  },
+  {
+   "lat": 3.165,
+   "lon": 101.705,
+   "setting": "city",
+   "label": "Kampung Baru, Kuala Lumpur, Malaysia"
+  },
+  {
+   "lat": 14.59,
+   "lon": 120.975,
+   "setting": "city",
+   "label": "Intramuros, Manila, Philippines"
+  },
+  {
+   "lat": 31.63,
+   "lon": -7.989,
+   "setting": "city",
+   "label": "Medina, Marrakech, Morocco"
+  },
+  {
+   "lat": 34.065,
+   "lon": -4.977,
+   "setting": "city",
+   "label": "Fes el Bali, Morocco"
+  },
+  {
+   "lat": 30.06,
+   "lon": 31.22,
+   "setting": "city",
+   "label": "Zamalek, Cairo, Egypt"
+  },
+  {
+   "lat": 28.508,
+   "lon": 34.513,
+   "setting": "coast",
+   "label": "Dahab, Egypt"
+  },
+  {
+   "lat": 36.798,
+   "lon": 10.171,
+   "setting": "city",
+   "label": "Medina of Tunis, Tunisia"
+  },
+  {
+   "lat": 5.557,
+   "lon": -0.177,
+   "setting": "city",
+   "label": "Osu, Accra, Ghana"
+  },
+  {
+   "lat": 6.51,
+   "lon": 3.38,
+   "setting": "city",
+   "label": "Yaba, Lagos, Nigeria"
+  },
+  {
+   "lat": -1.265,
+   "lon": 36.805,
+   "setting": "city",
+   "label": "Westlands, Nairobi, Kenya"
+  },
+  {
+   "lat": -3.37,
+   "lon": 36.69,
+   "setting": "city",
+   "label": "Arusha, Tanzania"
+  },
+  {
+   "lat": -6.162,
+   "lon": 39.189,
+   "setting": "coast",
+   "label": "Stone Town, Zanzibar, Tanzania"
+  },
+  {
+   "lat": 9.03,
+   "lon": 38.75,
+   "setting": "city",
+   "label": "Addis Ababa, Ethiopia"
+  },
+  {
+   "lat": -33.921,
+   "lon": 18.415,
+   "setting": "city",
+   "label": "Bo-Kaap, Cape Town, South Africa"
+  },
+  {
+   "lat": -33.94,
+   "lon": 18.86,
+   "setting": "farmland",
+   "label": "near Stellenbosch, South Africa"
+  },
+  {
+   "lat": -33.96,
+   "lon": 18.405,
+   "setting": "trailhead",
+   "label": "Table Mountain, South Africa"
+  },
+  {
+   "lat": 14.68,
+   "lon": -17.44,
+   "setting": "city",
+   "label": "Dakar, Senegal"
+  },
+  {
+   "lat": 0.315,
+   "lon": 32.58,
+   "setting": "city",
+   "label": "Kampala, Uganda"
+  },
+  {
+   "lat": -18.91,
+   "lon": 47.53,
+   "setting": "city",
+   "label": "Antananarivo, Madagascar"
+  },
+  {
+   "lat": 40.764,
+   "lon": -73.923,
+   "setting": "city",
+   "label": "Astoria, New York, USA"
+  },
+  {
+   "lat": 42.365,
+   "lon": -71.054,
+   "setting": "city",
+   "label": "North End, Boston, USA"
+  },
+  {
+   "lat": 45.525,
+   "lon": -73.58,
+   "setting": "city",
+   "label": "Plateau, Montreal, Canada"
+  },
+  {
+   "lat": 46.7,
+   "lon": -71.3,
+   "setting": "farmland",
+   "label": "near Quebec City, Canada"
+  },
+  {
+   "lat": 41.857,
+   "lon": -87.656,
+   "setting": "city",
+   "label": "Pilsen, Chicago, USA"
+  },
+  {
+   "lat": 29.964,
+   "lon": -90.054,
+   "setting": "city",
+   "label": "Marigny, New Orleans, USA"
+  },
+  {
+   "lat": 37.759,
+   "lon": -122.419,
+   "setting": "city",
+   "label": "Mission District, San Francisco, USA"
+  },
+  {
+   "lat": 45.523,
+   "lon": -122.656,
+   "setting": "city",
+   "label": "Portland, Oregon, USA"
+  },
+  {
+   "lat": 39.325,
+   "lon": -77.739,
+   "setting": "trailhead",
+   "label": "Harpers Ferry, West Virginia, USA"
+  },
+  {
+   "lat": 38.573,
+   "lon": -109.55,
+   "setting": "trailhead",
+   "label": "Moab, Utah, USA"
+  },
+  {
+   "lat": 41.88,
+   "lon": -93.6,
+   "setting": "farmland",
+   "label": "central Iowa, USA"
+  },
+  {
+   "lat": 49.27,
+   "lon": -123.07,
+   "setting": "city",
+   "label": "Commercial Drive, Vancouver, Canada"
+  },
+  {
+   "lat": 19.35,
+   "lon": -99.162,
+   "setting": "city",
+   "label": "Coyoacan, Mexico City, Mexico"
+  },
+  {
+   "lat": 17.062,
+   "lon": -96.726,
+   "setting": "city",
+   "label": "Oaxaca de Juarez, Mexico"
+  },
+  {
+   "lat": 21.018,
+   "lon": -101.256,
+   "setting": "city",
+   "label": "Guanajuato, Mexico"
+  },
+  {
+   "lat": 14.557,
+   "lon": -90.734,
+   "setting": "village",
+   "label": "Antigua Guatemala, Guatemala"
+  },
+  {
+   "lat": 23.134,
+   "lon": -82.386,
+   "setting": "city",
+   "label": "Vedado, Havana, Cuba"
+  },
+  {
+   "lat": 10.423,
+   "lon": -75.549,
+   "setting": "coast",
+   "label": "Cartagena, Colombia"
+  },
+  {
+   "lat": 4.596,
+   "lon": -74.073,
+   "setting": "city",
+   "label": "La Candelaria, Bogota, Colombia"
+  },
+  {
+   "lat": -0.22,
+   "lon": -78.512,
+   "setting": "city",
+   "label": "Old Town, Quito, Ecuador"
+  },
+  {
+   "lat": -13.517,
+   "lon": -71.978,
+   "setting": "city",
+   "label": "Cusco, Peru"
+  },
+  {
+   "lat": -12.148,
+   "lon": -77.022,
+   "setting": "coast",
+   "label": "Barranco, Lima, Peru"
+  },
+  {
+   "lat": -16.496,
+   "lon": -68.133,
+   "setting": "city",
+   "label": "La Paz, Bolivia"
+  },
+  {
+   "lat": -33.045,
+   "lon": -71.62,
+   "setting": "coast",
+   "label": "Valparaiso, Chile"
+  },
+  {
+   "lat": -34.621,
+   "lon": -58.372,
+   "setting": "city",
+   "label": "San Telmo, Buenos Aires, Argentina"
+  },
+  {
+   "lat": -32.99,
+   "lon": -68.85,
+   "setting": "farmland",
+   "label": "Maipu, Mendoza, Argentina"
+  },
+  {
+   "lat": -34.89,
+   "lon": -60.02,
+   "setting": "farmland",
+   "label": "near Chivilcoy, Argentina"
+  },
+  {
+   "lat": -34.908,
+   "lon": -56.187,
+   "setting": "coast",
+   "label": "Ciudad Vieja, Montevideo, Uruguay"
+  },
+  {
+   "lat": -23.22,
+   "lon": -44.715,
+   "setting": "village",
+   "label": "Paraty, Brazil"
+  },
+  {
+   "lat": -23.549,
+   "lon": -46.69,
+   "setting": "city",
+   "label": "Vila Madalena, Sao Paulo, Brazil"
+  },
+  {
+   "lat": -12.971,
+   "lon": -38.51,
+   "setting": "city",
+   "label": "Pelourinho, Salvador, Brazil"
+  },
+  {
+   "lat": -33.897,
+   "lon": 151.179,
+   "setting": "city",
+   "label": "Newtown, Sydney, Australia"
+  },
+  {
+   "lat": -37.798,
+   "lon": 144.978,
+   "setting": "city",
+   "label": "Fitzroy, Melbourne, Australia"
+  },
+  {
+   "lat": -42.883,
+   "lon": 147.329,
+   "setting": "city",
+   "label": "Hobart, Tasmania, Australia"
+  },
+  {
+   "lat": -34.95,
+   "lon": 138.75,
+   "setting": "farmland",
+   "label": "Adelaide Hills, Australia"
+  },
+  {
+   "lat": -28.643,
+   "lon": 153.612,
+   "setting": "coast",
+   "label": "Byron Bay, Australia"
+  },
+  {
+   "lat": -41.293,
+   "lon": 174.778,
+   "setting": "city",
+   "label": "Te Aro, Wellington, New Zealand"
+  },
+  {
+   "lat": -36.854,
+   "lon": 174.745,
+   "setting": "city",
+   "label": "Ponsonby, Auckland, New Zealand"
+  },
+  {
+   "lat": -45.031,
+   "lon": 168.662,
+   "setting": "village",
+   "label": "Queenstown, New Zealand"
+  },
+  {
+   "lat": -39.17,
+   "lon": 175.59,
+   "setting": "trailhead",
+   "label": "Tongariro, New Zealand"
+  },
+  {
+   "lat": -18.142,
+   "lon": 178.442,
+   "setting": "city",
+   "label": "Suva, Fiji"
+  }
+ ]
+}
