@@ -277,8 +277,15 @@ def test_seed_file_covers_the_inhabited_world() -> None:
     drops = game.load_drops()
     assert len(drops) >= 80
 
-    settings = {drop["setting"] for drop in drops}
-    assert {"city", "village", "trailhead", "coast", "farmland"} <= settings
+    # Cities only: no villages, farmland or trailheads, so the answer is always
+    # a place name worth guessing.
+    assert {drop["setting"] for drop in drops} == {"city", "coast"}
+    assert {drop["fame"] for drop in drops} == {"famous", "known"}
+    # Every label is "Neighbourhood, City, Country", in English.
+    for drop in drops:
+        parts = drop["label"].split(", ")
+        assert len(parts) == 3, drop["label"]
+        assert drop["label"].isascii(), drop["label"]
 
     lons = [drop["lon"] for drop in drops]
     lats = [drop["lat"] for drop in drops]
@@ -329,3 +336,102 @@ def test_a_night_drop_starts_in_the_morning() -> None:
     from dropzone import sun
 
     assert sun.is_daylight(35.7, 139.8, start)
+
+
+# --- difficulty ------------------------------------------------------------
+
+
+def test_easy_uses_famous_cities_and_the_others_use_all_of_them() -> None:
+    easy = game.candidate_drops("easy")
+    hard = game.candidate_drops("hard")
+    god = game.candidate_drops("god")
+
+    assert {drop["fame"] for drop in easy} == {"famous"}
+    assert len(easy) >= 40
+    assert len(hard) == len(god) == len(game.load_drops()) > len(easy)
+
+
+def test_coarsen_label_drops_the_neighbourhood() -> None:
+    assert game.coarsen_label("Spaccanapoli, Naples, Italy") == "Naples, Italy"
+    assert game.coarsen_label("Hallstatt, Austria") == "Hallstatt, Austria"
+    assert game.coarsen_label("Cusco, Peru") == "Cusco, Peru"
+
+
+def test_reveal_granularity_follows_the_difficulty() -> None:
+    label = "Commercial Drive, Vancouver, Canada"
+    assert game.compose_reveal(label, "easy") == "Vancouver, Canada"
+    assert game.compose_reveal(label, "hard") == "Vancouver, Canada"
+    assert game.compose_reveal(label, "god") == label
+
+
+def test_every_reveal_is_in_english() -> None:
+    """The bug this guards: a reveal arriving in the local script.
+
+    Reveals are built from the seed labels rather than from Nominatim, which
+    answers in the local language, so every possible reveal is checked here.
+    """
+    for drop in game.load_drops():
+        for difficulty in ("easy", "hard", "god"):
+            reveal = game.compose_reveal(drop["label"], difficulty)
+            assert reveal.isascii(), reveal
+            assert reveal.count(",") == (2 if difficulty == "god" else 1)
+
+
+def test_new_game_carries_the_difficulty_through() -> None:
+    easy = run(game.new_game("locate", seed=7, difficulty="easy"))
+    god = run(game.new_game("locate", seed=7, difficulty="god"))
+
+    assert easy.difficulty == "easy"
+    assert god.difficulty == "god"
+    assert easy.precision["win_m"] > god.precision["win_m"]
+    assert easy.country_code == "PT"          # from the stubbed reverse geocode
+    # The two draw from different pools, so the drops differ; what is fixed is
+    # the granularity of the reveal.
+    assert easy.reveal_label.count(",") == 1
+    assert god.reveal_label.count(",") == 2
+
+
+def test_new_game_rejects_an_unknown_difficulty() -> None:
+    with pytest.raises(ValueError, match="unknown difficulty"):
+        run(game.new_game("locate", seed=1, difficulty="nightmare"))
+
+
+def test_new_endpoint_accepts_and_validates_difficulty(client) -> None:
+    body = client.post("/new", json={"mode": "locate", "difficulty": "god", "seed": 7}).json()
+    assert body["status"]["difficulty"] == "god"
+    assert "neighbourhood" in body["status"]["answer_must"]
+    assert "god" in body["response"] and "neighbourhood" in body["response"]
+
+    hard = client.post("/new", json={"mode": "locate", "difficulty": "hard", "seed": 7}).json()
+    assert hard["status"]["answer_must"] == "name the city"
+
+    assert client.post("/new", json={"mode": "locate", "difficulty": "medium"}).status_code == 400
+    # Easy is the default.
+    default = client.post("/new", json={"mode": "locate", "seed": 7}).json()
+    assert default["status"]["difficulty"] == "easy"
+
+
+def test_the_prompt_states_the_precision_without_the_answer() -> None:
+    from dropzone import prompts
+
+    session = make_session(mode="locate")
+    session.difficulty = "god"
+    prompt = prompts.system_prompt(session)
+
+    assert "god" in prompt and "neighbourhood" in prompt
+    assert "not what the answer is" in prompt
+    for secret in ("Alfama", "Lisboa", "Portugal", "38.7", "-9.1"):
+        assert secret not in prompt
+
+
+def test_no_middle_east_drops_remain() -> None:
+    excluded = {
+        "Turkey", "Lebanon", "Jordan", "Egypt", "Israel", "Syria", "Iraq", "Iran",
+        "Saudi Arabia", "Yemen", "Oman", "Qatar", "Kuwait", "Bahrain", "Cyprus",
+        "Palestine", "United Arab Emirates",
+    }
+    countries = {drop["label"].split(", ")[-1] for drop in game.load_drops()}
+    assert not (countries & excluded)
+    # And the seed file is still large and broad enough to be worth playing.
+    assert len(game.load_drops()) >= 80
+    assert len(countries) >= 40

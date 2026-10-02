@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from . import geo, geocode, overpass, sun
-from .session import GameSession, Mode
+from .session import DIFFICULTIES, GameSession, Mode
 
 UTC = dt.timezone.utc
 
@@ -24,6 +24,11 @@ MIN_BUDGET_MIN = 3 * 60
 
 EXTRACTION_MIN_M = 2000.0
 EXTRACTION_MAX_M = 5000.0
+
+# Easy drops only in cities most people could place on a map. Hard and god use
+# the whole list, which is still cities - no villages, no farmland - just ones
+# you might have to think about.
+EASY_FAME = "famous"
 
 _drops_cache: list[dict[str, Any]] | None = None
 
@@ -59,9 +64,24 @@ async def _count_features(lat: float, lon: float) -> tuple[int, list[dict[str, A
     return count, elements
 
 
-async def pick_drop(rng: random.Random) -> tuple[dict[str, Any], float, float, list[dict[str, Any]]]:
-    """Choose a seed, jitter it, and check it has enough mapped detail."""
+def candidate_drops(difficulty: str) -> list[dict[str, Any]]:
+    """The seeds eligible for a difficulty.
+
+    Easy draws only on the famous cities. Hard and god draw on all of them, so
+    the city can be one you have to work for - but it is always a real city with
+    a name worth guessing.
+    """
     seeds = load_drops()
+    if difficulty != "easy":
+        return seeds
+    return [seed for seed in seeds if seed.get("fame") == EASY_FAME] or seeds
+
+
+async def pick_drop(
+    rng: random.Random, difficulty: str = "easy"
+) -> tuple[dict[str, Any], float, float, list[dict[str, Any]]]:
+    """Choose a seed, jitter it, and check it has enough mapped detail."""
+    seeds = candidate_drops(difficulty)
     tried: set[int] = set()
     last: tuple[dict[str, Any], float, float] | None = None
 
@@ -140,14 +160,41 @@ def plan_clock(lat: float, lon: float, now: dt.datetime) -> tuple[dt.datetime, d
     return start, deadline
 
 
-async def new_game(mode: str, seed: int | None = None) -> GameSession:
-    """Build a fully initialised session for a mode."""
+def coarsen_label(label: str) -> str:
+    """Drop a seed label's leading neighbourhood, leaving city and country.
+
+    "Spaccanapoli, Naples, Italy" becomes "Naples, Italy".
+    """
+    parts = [part.strip() for part in label.split(",")]
+    return ", ".join(parts[1:]) if len(parts) >= 3 else label
+
+
+def compose_reveal(label: str, difficulty: str) -> str:
+    """The end-of-run reveal, at the granularity the run was played at.
+
+    Built from the seed label, which is written in English, so the result page
+    never shows a name in a script the player cannot read. God mode reveals the
+    neighbourhood it asked for; easy and hard reveal the city.
+    """
+    return label if difficulty == "god" else coarsen_label(label)
+
+
+async def new_game(
+    mode: str, seed: int | None = None, difficulty: str = "easy"
+) -> GameSession:
+    """Build a fully initialised session for a mode and difficulty."""
     if mode not in ("locate", "escape", "expedition"):
         raise ValueError(f"unknown mode: {mode}")
+    if difficulty not in DIFFICULTIES:
+        raise ValueError(f"unknown difficulty: {difficulty}")
 
     rng = random.Random(seed)
-    drop_seed, lat, lon, elements = await pick_drop(rng)
+    drop_seed, lat, lon, elements = await pick_drop(rng, difficulty)
     start, deadline = plan_clock(lat, lon, dt.datetime.now(UTC))
+
+    reveal = compose_reveal(
+        drop_seed.get("label", "an undisclosed location"), difficulty
+    )
 
     session = GameSession(
         mode=mode,  # type: ignore[arg-type]
@@ -157,7 +204,8 @@ async def new_game(mode: str, seed: int | None = None) -> GameSession:
         drop_lon=lon,
         start_utc=start,
         deadline_utc=deadline,
-        reveal_label=drop_seed.get("label", "an undisclosed location"),
+        difficulty=difficulty,  # type: ignore[arg-type]
+        reveal_label=reveal,
     )
 
     # The drop check already pulled a 1 km sweep. Prime the session cache with
@@ -171,12 +219,10 @@ async def new_game(mode: str, seed: int | None = None) -> GameSession:
     # Resolve the country once, server-side. Only the code is kept, and only
     # `tables.py` ever reads it.
     try:
-        code, display = await geocode.reverse_country(lat, lon)
+        code = await geocode.reverse_country_code(lat, lon)
         if code:
             session.country_code = code
-        if display:
-            session.reveal_label = display
-    except Exception:  # noqa: BLE001 - the seed label is a fine fallback
+    except Exception:  # noqa: BLE001 - the tools that need it degrade gracefully
         pass
 
     if mode in ("escape", "expedition"):
@@ -210,13 +256,19 @@ OPENING = {
 
 def opening_text(session: GameSession) -> str:
     """The deterministic opening narration, written by the server not the model."""
-    mode_text = OPENING[session.mode]
     status = session.status()
-    return (
-        f"{mode_text}\n\n"
-        f"Watch: {status['game_time']}. Daylight remaining: {status['time_remaining']}.\n"
+    lines = [OPENING[session.mode], ""]
+    if session.mode != "escape":
+        lines.append(
+            f"Difficulty: {session.difficulty}. To answer, {session.precision['answer']}."
+        )
+    lines.append(
+        f"Watch: {status['game_time']}. Daylight remaining: {status['time_remaining']}."
+    )
+    lines.append(
         "Try: 'look around', 'listen', 'where is the sun', 'walk north-east 800 metres'."
     )
+    return "\n".join(lines)
 
 
 def describe_mode_hint(mode: Mode) -> str:

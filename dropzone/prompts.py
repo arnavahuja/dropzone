@@ -87,6 +87,12 @@ def system_prompt(session: GameSession) -> str:
     ]
     if session.mode != "escape":
         lines.append(f"- Guesses left: {status['guesses_left']}.")
+        lines.append(
+            f"- Difficulty: {session.difficulty}. For a guess to count the player must "
+            f"{session.precision['answer']}. Hold them to that: on hard, a bare city "
+            "name is worth asking them to narrow down before you submit it. This tells "
+            "you how precise an answer must be, not what the answer is."
+        )
     if session.mode in ("escape", "expedition"):
         reached = "reached" if session.extraction_reached else "not reached yet"
         lines.append(f"- Extraction point: {reached}.")

@@ -22,7 +22,7 @@ from pydantic import BaseModel, Field
 
 from dropzone import agent, game, tools
 from dropzone.providers import ProviderError, get_provider, provider_status
-from dropzone.session import MODES, GameSession
+from dropzone.session import DIFFICULTIES, MODES, GameSession
 
 load_dotenv()
 
@@ -44,6 +44,10 @@ class NewGameRequest(BaseModel):
     """Body of `POST /new`."""
 
     mode: str = Field(default="locate", description="locate, escape or expedition")
+    difficulty: str = Field(
+        default="easy",
+        description="easy (name the city) or hard (name the neighbourhood)",
+    )
     seed: int | None = Field(default=None, description="Optional RNG seed, for testing")
 
 
@@ -93,6 +97,11 @@ async def new_game(request: NewGameRequest) -> dict[str, Any]:
     mode = request.mode.strip().lower()
     if mode not in MODES:
         raise HTTPException(status_code=400, detail=f"mode must be one of {', '.join(MODES)}")
+    difficulty = request.difficulty.strip().lower()
+    if difficulty not in DIFFICULTIES:
+        raise HTTPException(
+            status_code=400, detail=f"difficulty must be one of {', '.join(DIFFICULTIES)}"
+        )
 
     try:
         get_provider()
@@ -101,7 +110,7 @@ async def new_game(request: NewGameRequest) -> dict[str, Any]:
 
     _reap()
     try:
-        session = await game.new_game(mode, seed=request.seed)
+        session = await game.new_game(mode, seed=request.seed, difficulty=difficulty)
     except Exception as exc:  # noqa: BLE001 - surface setup failures as 503
         raise HTTPException(status_code=503, detail=f"could not prepare a drop: {exc}") from exc
 

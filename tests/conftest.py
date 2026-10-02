@@ -177,14 +177,14 @@ def offline(monkeypatch: pytest.MonkeyPatch) -> None:
         return {"lat": hit[0], "lon": hit[1], "display_name": place_name.title()}
 
     async def fake_reverse(lat: float, lon: float):
-        return "PT", "Alfama, Lisboa, Portugal"
+        return "PT"
 
     monkeypatch.setattr(overpass, "run_query", fake_overpass)
     monkeypatch.setattr(weather, "fetch_current", fake_weather)
     monkeypatch.setattr(elevation, "fetch_elevations", fake_elevations)
     monkeypatch.setattr(wildlife, "fetch_species", fake_species)
     monkeypatch.setattr(geocode, "geocode_place", fake_geocode)
-    monkeypatch.setattr(geocode, "reverse_country", fake_reverse)
+    monkeypatch.setattr(geocode, "reverse_country_code", fake_reverse)
 
 
 def make_session(

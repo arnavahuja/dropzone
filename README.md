@@ -35,7 +35,7 @@ GEMINI_API_KEY=...           # only the key matching LLM_PROVIDER is needed
 Switching provider is an `.env` edit and a restart. No model name is hardcoded
 anywhere in the code, and a test enforces that.
 
-Run the tests (all offline, no API keys, no network):
+Run the tests (123 of them, all offline, no API keys, no network):
 
 ```bash
 uv run pytest
@@ -49,7 +49,22 @@ uv run pytest
 | **Escape** | Reach an extraction point 2–5 km away. | Arrival, plus time left |
 | **Expedition** | Both. | Both, out of 2000 |
 
-All modes share a game clock: 6 hours of game time, or until local sunset,
+## Difficulty
+
+| | Answer needed | Dropped in | Counts if within |
+|---|---|---|---|
+| **Easy** | The city | A city most people could place on a map | 25 km |
+| **Hard** | The city | Any city in the list | 25 km |
+| **God** | The neighbourhood too | Any city in the list | 3 km |
+
+Easy and hard ask the same question and mark it the same way; they differ only
+in how obscure the city can be. God mode is the one that wants the district.
+
+Every drop is a real city — there are no villages, farmland or trailheads, so
+the answer is always a name worth guessing. Difficulty does not apply to Escape,
+which has no guessing.
+
+All runs share a game clock: 6 hours of game time, or until local sunset,
 whichever comes first, with a 3-hour floor. A drop that lands at night is
 shifted forward to that location's morning. Actions cost game time; talking is
 free.
@@ -86,6 +101,11 @@ the model never receives the answer in any form.
   defence, which is that the location is not in its context at all.
 - **The seed file is server-only.** `data/drops.json` is never served; only
   `static/` is mounted.
+- **The reveal is built from the seed file, in English.** Nominatim answers in
+  the local language, so a reveal built from it could come back in a script the
+  player cannot read; it is also inconsistent at street granularity, answering
+  "Bella Vista" for central Panama City and "Taito" for Yanaka in Tokyo. The
+  reverse geocode is therefore used for the country code and nothing else.
 
 `tests/test_leaks.py` enforces this. For drops on four continents it calls every
 tool and asserts the serialised results contain no coordinate near the truth, no
@@ -108,7 +128,7 @@ feature name from the map data, and no country, city or timezone string.
 | `move` | New offset from the drop, time spent, whether extraction was reached. | Local state | ~12 min/km |
 | `radio_check` | Bearing and distance to extraction. 4 charges. | Local state | 2 min |
 | `check_status` | Clock, offset, inventory, guesses, battery. | Local state | free |
-| `submit_guess` | Distance from the truth, rounded. The third guess ends the run. | Nominatim | free |
+| `submit_guess` | Distance from the truth, rounded, graded at the run's difficulty. The third guess ends the run. | Nominatim | free |
 
 `read_sign`, `read_sun`, `greet_local`, `listen` and `spot_wildlife` are the
 original tools. `read_sun` is the sharpest: sun elevation plus a UTC watch is
@@ -130,7 +150,7 @@ Try also `read the nearest sign` (which chains `look_around` into `read_sign`),
 
 ## API
 
-- `POST /new` → `{mode, seed?}` → `{session_id, response, tool_calls, status}`
+- `POST /new` → `{mode, difficulty, seed?}` → `{session_id, response, tool_calls, status}`
 - `POST /chat` → `{message, session_id}` → `{response, session_id, tool_calls, status}`
 
   where each `tool_calls` entry is `{name, args, result, game_time}`.
@@ -158,9 +178,9 @@ dropzone/
   scripts.py           writing-system detection for read_sign
   tables.py            driving side and greetings, keyed by country code
   providers/           one adapter per LLM provider behind a shared interface
-data/drops.json        111 curated drop points (server-only)
+data/drops.json        182 curated city drop points (server-only)
 static/index.html      the field terminal, one file, no build
-tests/                 107 tests, fully offline
+tests/                 123 tests, fully offline
 ```
 
 The agent loop is a plain loop over plain functions. No agent framework. It caps
@@ -170,12 +190,20 @@ clock has run out and what the score is.
 ## Decisions where the spec was silent
 
 - **Scoring.** 1000 points per objective, so Expedition is out of 2000. A guess
-  scores `1000 · e^(−km/400)`, so 100 km out is worth about 780 and 2000 km about
-  7. Reaching extraction pays 600 plus up to 400 for time left; missing it pays
-  up to 250 for distance closed. Locate adds up to 200 for time left. A Locate
-  run counts as a win within 50 km.
-- **Seed file.** 111 drops rather than the required 80, each with a `label` used
-  for the end-of-run reveal when the reverse geocode is unavailable.
+  scores `1000 · e^(−km/decay)`, where the decay is 300 km when the city is the
+  answer and 40 km in god mode — so the same 12 km error is worth 960 on easy
+  and 740 in god. Reaching extraction pays 600 plus up to 400 for time left;
+  missing it pays up to 250 for distance closed. Locate adds up to 200 for time
+  left.
+- **Verdict wording** scales to the target precision at the near end ("dead on",
+  "close enough to count") and is absolute at the far end, because the wrong
+  continent is the wrong continent at any difficulty.
+- **Seed file.** 182 city drops rather than the required 80, each tagged
+  `famous` or `known` to build the easy pool, and labelled
+  "Neighbourhood, City, Country" in ASCII English. Every coordinate was checked
+  by reverse geocoding that it falls in the country its label claims. This
+  departs from the brief, which asked for villages, trailheads and farmland too:
+  those drops made the answer an obscure place name rather than a guessable one.
 - **Feature ids** are sequential per session (`F001`), so they carry no OSM
   identity that could be looked up outside the game.
 - **`listen` and `greet_local` reuse the `look_around` cache** rather than

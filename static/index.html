@@ -80,6 +80,23 @@
   }
   button.mode .name { color: var(--accent); letter-spacing: .1em; }
   button.mode .what { color: var(--dim); display: block; margin-top: 3px; }
+  .diff { display: flex; gap: 10px; flex-wrap: wrap; }
+  button.diff-opt {
+    all: unset;
+    cursor: pointer;
+    border: 1px solid var(--rule);
+    padding: 10px 14px;
+    flex: 1 1 200px;
+    transition: border-color .12s, background .12s;
+  }
+  button.diff-opt:hover { border-color: var(--dim); }
+  button.diff-opt[aria-pressed="true"] {
+    border-color: var(--accent);
+    background: #0a1410;
+  }
+  button.diff-opt .name { color: var(--accent); letter-spacing: .1em; }
+  button.diff-opt[aria-pressed="false"] .name { color: var(--dim); }
+  button.diff-opt .what { color: var(--dim); display: block; margin-top: 3px; }
   ul.examples { list-style: none; padding: 0; margin: 0; color: var(--dim); }
   ul.examples li::before { content: "> "; color: var(--accent); }
   #boot-status { margin-top: 24px; color: var(--warn); min-height: 1.5em; }
@@ -224,6 +241,24 @@
     <p class="lede" style="color:var(--dim)">The narrator does not know where you are either. Every fact it gives you comes
     from a tool call, and you see every call in the field log. Reading those logs <em>is</em> the game.</p>
 
+    <h2>Difficulty</h2>
+    <div class="diff">
+      <button class="diff-opt" data-diff="easy" aria-pressed="true">
+        <span class="name">EASY</span>
+        <span class="what">Name the city. You are dropped in a city most people
+        could find on a map.</span>
+      </button>
+      <button class="diff-opt" data-diff="hard" aria-pressed="false">
+        <span class="name">HARD</span>
+        <span class="what">Name the city. It can be any city in the world, not
+        just the obvious ones.</span>
+      </button>
+      <button class="diff-opt" data-diff="god" aria-pressed="false">
+        <span class="name">GOD</span>
+        <span class="what">Name the neighbourhood too, to within 3 km. Any city.</span>
+      </button>
+    </div>
+
     <h2>Choose a run</h2>
     <div class="modes">
       <button class="mode" data-mode="locate">
@@ -232,7 +267,8 @@
       </button>
       <button class="mode" data-mode="escape">
         <span class="name">ESCAPE</span>
-        <span class="what">Reach an extraction point 2&ndash;5 km away before dark. Radio has four charges.</span>
+        <span class="what">Reach an extraction point 2&ndash;5 km away before dark. Radio has four
+        charges. No guessing, so difficulty does not apply.</span>
       </button>
       <button class="mode" data-mode="expedition">
         <span class="name">EXPEDITION</span>
@@ -282,6 +318,7 @@ const $ = (id) => document.getElementById(id);
 const logwrap = $("logwrap"), msg = $("msg"), spin = $("spin");
 
 let sessionId = null;
+let difficulty = "easy";
 let busy = false;
 let gameOver = false;
 const history = [];
@@ -429,7 +466,8 @@ function setStatus(status) {
     el.className = cls || "";
     el.innerHTML = label + " <b>" + esc(value) + "</b>";
   };
-  put("st-mode", "mode", status.mode);
+  put("st-mode", "mode",
+      status.mode === "escape" ? status.mode : status.mode + " / " + status.difficulty);
   const mins = status.minutes_remaining;
   put("st-time", "time left", status.time_remaining,
       mins <= 0 ? "out" : mins < 60 ? "low" : "");
@@ -460,8 +498,10 @@ function showEnd(result) {
   const won = result.outcome === "success";
   const rows = [
     ["mode", result.mode || ($("st-mode").textContent.replace("mode", "").trim())],
+    ["difficulty", result.mode === "escape" ? "" : result.difficulty],
     ["ended because", (result.reason || "").replace(/_/g, " ")],
     ["best guess", result.best_guess_error],
+    ["needed within", result.mode === "escape" ? "" : result.needed_to_be_within],
     ["guesses made", (result.guesses_made || []).join(", ") || "none"],
     ["extraction", result.extraction_reached ? "reached" : "not reached"],
     ["time used", result.time_used],
@@ -557,6 +597,15 @@ async function fetchResult() {
 }
 
 /* ---------- wiring ---------- */
+
+document.querySelectorAll("button.diff-opt").forEach((button) => {
+  button.onclick = () => {
+    difficulty = button.dataset.diff;
+    document.querySelectorAll("button.diff-opt").forEach((other) => {
+      other.setAttribute("aria-pressed", String(other === button));
+    });
+  };
+});
 
 document.querySelectorAll("button.mode").forEach((button) => {
   button.onclick = () => startGame(button.dataset.mode);

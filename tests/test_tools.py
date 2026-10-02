@@ -463,7 +463,25 @@ def test_submit_guess_returns_a_rounded_distance() -> None:
     assert result["guesses_left"] == 2
     assert result["distance_from_truth"].endswith("km")
     assert result["verdict"] == "the right country, roughly"
+    assert "city" in result["answer_must"]
     assert "final" not in result
+
+
+def test_submit_guess_grades_the_same_guess_against_the_difficulty() -> None:
+    """Lisbon is 1.4 km from the truth: dead on for a city, merely close in god."""
+    easy = make_session(mode="locate")
+    god = make_session(mode="locate")
+    god.difficulty = "god"
+
+    assert call(easy, "submit_guess", place_name="Lisbon")["verdict"] == "dead on"
+    god_guess = call(god, "submit_guess", place_name="Lisbon")
+    assert god_guess["verdict"] == "close enough to count"
+    assert "neighbourhood" in god_guess["answer_must"]
+
+    # Porto is 275 km out: the wrong answer at any precision.
+    assert call(easy, "submit_guess", place_name="Porto")["verdict"] \
+        == call(god, "submit_guess", place_name="Porto")["verdict"] \
+        == "the right country, roughly"
 
 
 def test_third_guess_ends_the_run_and_reveals() -> None:

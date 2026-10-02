@@ -119,3 +119,69 @@ def test_failed_escape_scores_partial_progress() -> None:
     result = scoring.finalise(session, "out_of_time")
     assert result["outcome"] == "failure"
     assert result["extraction_reached"] is False
+
+
+# --- difficulty ------------------------------------------------------------
+
+
+def test_god_scoring_punishes_a_city_level_guess() -> None:
+    """A 12 km error is nearly perfect when the city is the answer, weak in god."""
+    assert scoring.guess_points(12_000, "easy") > 950
+    assert 700 < scoring.guess_points(12_000, "god") < 800
+    # A neighbourhood-level answer scores well either way.
+    assert scoring.guess_points(800, "god") > 970
+
+
+def test_easy_and_hard_grade_identically() -> None:
+    """They differ in which cities you are dropped in, not in the marking."""
+    for metres in (500, 9_000, 25_000, 400_000):
+        assert scoring.guess_points(metres, "easy") == scoring.guess_points(metres, "hard")
+        assert scoring.verdict(metres, "easy") == scoring.verdict(metres, "hard")
+
+
+def test_verdicts_scale_to_the_target_precision() -> None:
+    assert scoring.verdict(500, "easy") == "dead on"
+    assert scoring.verdict(12_000, "easy") == "close enough to count"
+    assert scoring.verdict(12_000, "god") == "the right area, but not precise enough"
+    assert scoring.verdict(600, "god") == "dead on"       # within a quarter of 3 km
+    assert scoring.verdict(2_500, "god") == "close enough to count"
+    # The far end is absolute: wrong continent is wrong continent.
+    for difficulty in ("easy", "hard", "god"):
+        assert scoring.verdict(9_000_000, difficulty) == "the wrong continent"
+
+
+def test_naming_only_the_city_wins_on_easy_and_loses_in_god_mode() -> None:
+    def run_with(difficulty: str) -> dict:
+        session = make_session(mode="locate", minutes=360)
+        session.difficulty = difficulty  # type: ignore[assignment]
+        session.guesses.append(
+            type("G", (), {"place_name": "Lisbon", "distance_m": 9_000.0, "resolved": True})()
+        )
+        return scoring.finalise(session, "guesses_spent")
+
+    easy = run_with("easy")
+    hard = run_with("hard")
+    god = run_with("god")
+
+    assert easy["outcome"] == hard["outcome"] == "success"
+    assert god["outcome"] == "failure"
+    assert easy["needed_to_be_within"] == hard["needed_to_be_within"] == "25 km"
+    assert god["needed_to_be_within"] == "3 km"
+    assert easy["score"] > god["score"]
+
+
+def test_difficulty_is_reported_in_the_result_and_status() -> None:
+    session = make_session(mode="expedition")
+    session.difficulty = "god"  # type: ignore[assignment]
+
+    status = session.status()
+    assert status["difficulty"] == "god"
+    assert "neighbourhood" in status["answer_must"]
+    assert scoring.finalise(session, "out_of_time")["difficulty"] == "god"
+
+    city_run = make_session(mode="locate")
+    assert city_run.status()["answer_must"] == "name the city"
+
+
+def test_escape_runs_do_not_mention_an_answer_precision() -> None:
+    assert "answer_must" not in make_session(mode="escape").status()

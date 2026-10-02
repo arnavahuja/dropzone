@@ -20,6 +20,36 @@ UTC = dt.timezone.utc
 Mode = Literal["locate", "escape", "expedition"]
 MODES: tuple[str, ...] = ("locate", "escape", "expedition")
 
+Difficulty = Literal["easy", "hard", "god"]
+DIFFICULTIES: tuple[str, ...] = ("easy", "hard", "god")
+
+# How precise an answer has to be. `win_m` is the radius inside which a guess
+# counts and `decay_km` is how fast points fall off beyond it.
+#
+# Easy and hard ask the same question - name the city - and differ in which
+# cities you can be dropped in. God mode is the one that wants the
+# neighbourhood as well.
+PRECISION: dict[str, dict[str, Any]] = {
+    "easy": {
+        "win_m": 25_000,
+        "decay_km": 300.0,
+        "answer": "name the city",
+        "reveal": "city",
+    },
+    "hard": {
+        "win_m": 25_000,
+        "decay_km": 300.0,
+        "answer": "name the city",
+        "reveal": "city",
+    },
+    "god": {
+        "win_m": 3_000,
+        "decay_km": 40.0,
+        "answer": "name the neighbourhood or district as well as the city",
+        "reveal": "neighbourhood",
+    },
+}
+
 MAX_GUESSES = 3
 RADIO_CHARGES = 4
 GREET_USES = 3
@@ -46,6 +76,7 @@ class GameSession:
     drop_lon: float
     start_utc: dt.datetime
     deadline_utc: dt.datetime
+    difficulty: Difficulty = "easy"
     country_code: str | None = None
     reveal_label: str = "an undisclosed location"
     extraction_lat: float | None = None
@@ -155,6 +186,11 @@ class GameSession:
 
     # -- status -----------------------------------------------------------
 
+    @property
+    def precision(self) -> dict[str, Any]:
+        """How precise an answer must be in this run."""
+        return PRECISION[self.difficulty]
+
     def guesses_left(self) -> int:
         """Guesses still available in this session."""
         return max(0, MAX_GUESSES - len(self.guesses))
@@ -171,6 +207,7 @@ class GameSession:
         """
         body: dict[str, Any] = {
             "mode": self.mode,
+            "difficulty": self.difficulty,
             "game_time": self.watch_time(),
             "minutes_remaining": self.minutes_remaining,
             "time_remaining": _format_duration(self.minutes_remaining),
@@ -181,6 +218,8 @@ class GameSession:
             "inventory": list(self.inventory),
             "game_over": self.game_over,
         }
+        if self.mode != "escape":
+            body["answer_must"] = self.precision["answer"]
         if self.mode in ("escape", "expedition"):
             body["extraction_reached"] = self.extraction_reached
         if self.game_over:

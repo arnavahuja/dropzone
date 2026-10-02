@@ -1064,12 +1064,14 @@ async def check_status(session: GameSession) -> dict[str, Any]:
 @tool(
     name="submit_guess",
     description=(
-        "Submit the player's answer for where they are: a place name, as specific "
-        "as they like ('Lisbon', 'Alfama, Lisbon', 'northern Vietnam'). Returns "
-        "how far the guess is from the truth, rounded, and how many guesses "
-        "remain. Three guesses per game, and the third ends the run and reveals "
-        "the true location. Only call this when the player clearly commits to a "
-        "guess. Free."
+        "Submit the player's answer for where they are: a place name ('Lisbon', "
+        "'Alfama, Lisbon', 'northern Vietnam'). Returns how far the guess is from "
+        "the truth, rounded, and how many guesses remain. How precise the answer "
+        "has to be depends on the run's difficulty, which check_status reports as "
+        "answer_must: on easy, naming the city is enough; on hard, the "
+        "neighbourhood or district is needed. Three guesses per game, and the "
+        "third ends the run and reveals the true location. Only call this when "
+        "the player clearly commits to a guess. Free."
     ),
     parameters={
         "type": "object",
@@ -1118,18 +1120,11 @@ async def submit_guess(session: GameSession, place_name: str) -> dict[str, Any]:
     session.guesses.append(Guess(place_name=name, distance_m=distance, resolved=True))
 
     km = geo.round_sig(distance / 1000.0)
-    verdict = (
-        "spot on" if distance < 2_000
-        else "very close" if distance < 25_000
-        else "the right region" if distance < 150_000
-        else "the right country, roughly" if distance < 600_000
-        else "the wrong part of the world" if distance < 3_000_000
-        else "the wrong continent"
-    )
     result: dict[str, Any] = {
         "guess": name,
         "distance_from_truth": f"{km:g} km",
-        "verdict": verdict,
+        "verdict": scoring.verdict(distance, session.difficulty),
+        "answer_must": session.precision["answer"],
         "guesses_left": session.guesses_left(),
     }
 
