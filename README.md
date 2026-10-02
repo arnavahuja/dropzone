@@ -30,12 +30,19 @@ Open <http://127.0.0.1:8000>. No build step, no database, no deployment config.
 LLM_PROVIDER=gemini          # gemini | anthropic | openai
 LLM_MODEL=gemini-2.5-flash   # any current model id for that provider
 GEMINI_API_KEY=...           # only the key matching LLM_PROVIDER is needed
+SHOW_TOOLS=true              # false hides the field log from the player
 ```
+
+`SHOW_TOOLS` controls what the player sees, not what the server reports. The
+`tool_calls` key stays in every `/chat` response either way, because the course
+requires it; the flag tells the frontend whether to draw the field log, and the
+start screen changes its wording to match so it does not promise a log that will
+not appear.
 
 Switching provider is an `.env` edit and a restart. No model name is hardcoded
 anywhere in the code, and a test enforces that.
 
-Run the tests (123 of them, all offline, no API keys, no network):
+Run the tests (136 of them, all offline, no API keys, no network):
 
 ```bash
 uv run pytest
@@ -211,6 +218,13 @@ gcloud run services update dropzone --region "$REGION" \
   --set-secrets GEMINI_API_KEY=dropzone-gemini-key:latest
 ```
 
+Same for hiding the field log in a deployed run. In the console it is
+*Edit & deploy new revision → Variables & Secrets*; from the CLI:
+
+```bash
+gcloud run services update dropzone --region "$REGION" --update-env-vars SHOW_TOOLS=false
+```
+
 Watch a build, or roll back:
 
 ```bash
@@ -280,7 +294,7 @@ dropzone/
   providers/           one adapter per LLM provider behind a shared interface
 data/drops.json        182 curated city drop points (server-only)
 static/index.html      the field terminal, one file, no build
-tests/                 123 tests, fully offline
+tests/                 136 tests, fully offline
 ```
 
 The agent loop is a plain loop over plain functions. No agent framework. It caps

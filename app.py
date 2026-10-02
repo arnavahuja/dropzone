@@ -34,6 +34,18 @@ STATIC_DIR = Path(__file__).resolve().parent / "static"
 SESSION_TTL = dt.timedelta(hours=12)
 MAX_SESSIONS = 200
 
+TRUTHY = ("1", "true", "yes", "on")
+
+
+def show_tool_calls() -> bool:
+    """Whether the player sees the field log, from SHOW_TOOLS. Defaults on.
+
+    `tool_calls` stays in every response whatever this says, because the course
+    requires that key: the flag decides whether the frontend draws the field log,
+    not whether the server reports what it ran.
+    """
+    return (os.getenv("SHOW_TOOLS") or "true").strip().lower() in TRUTHY
+
 app = FastAPI(title="Dropzone", version="0.1.0")
 
 SESSIONS: dict[str, GameSession] = {}
@@ -125,6 +137,7 @@ async def new_game(request: NewGameRequest) -> dict[str, Any]:
         "response": game.opening_text(session),
         "tool_calls": [],
         "status": session.status(),
+        "show_tool_calls": show_tool_calls(),
     }
 
 
@@ -143,12 +156,13 @@ async def chat(request: ChatRequest) -> dict[str, Any]:
 
     turn = await agent.take_turn(session, provider, message)
 
-    # The course requires these three keys, unchanged. `status` is extra.
+    # The course requires these three keys, unchanged. The rest is extra.
     return {
         "response": turn["response"],
         "session_id": session.session_id,
         "tool_calls": turn["tool_calls"],
         "status": session.status(),
+        "show_tool_calls": show_tool_calls(),
     }
 
 
@@ -190,6 +204,7 @@ async def health() -> dict[str, Any]:
         "tools": sorted(tools.REGISTRY),
         "drops_available": len(game.load_drops()),
         "active_sessions": len(SESSIONS),
+        "show_tool_calls": show_tool_calls(),
     }
 
 

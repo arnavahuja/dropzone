@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -435,3 +437,53 @@ def test_no_middle_east_drops_remain() -> None:
     # And the seed file is still large and broad enough to be worth playing.
     assert len(game.load_drops()) >= 80
     assert len(countries) >= 40
+
+
+# --- SHOW_TOOLS ------------------------------------------------------------
+
+
+def test_field_log_is_shown_by_default(client, monkeypatch) -> None:
+    monkeypatch.delenv("SHOW_TOOLS", raising=False)
+    body = client.post("/new", json={"mode": "locate", "seed": 7}).json()
+    assert body["show_tool_calls"] is True
+    assert client.get("/health").json()["show_tool_calls"] is True
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [
+        ("true", True), ("TRUE", True), ("1", True), ("yes", True), ("on", True),
+        ("false", False), ("0", False), ("no", False), ("off", False),
+        ("", True),  # unset-ish falls back to the default
+    ],
+)
+def test_show_tools_parsing(client, monkeypatch, value, expected) -> None:
+    monkeypatch.setenv("SHOW_TOOLS", value)
+    assert client.get("/health").json()["show_tool_calls"] is expected
+
+
+def test_chat_still_reports_tool_calls_when_the_log_is_hidden(client, monkeypatch) -> None:
+    """SHOW_TOOLS hides the field log; it must not change the API contract.
+
+    The course requires `tool_calls` in every /chat response, so the flag tells
+    the frontend what to draw rather than editing what the server reports.
+    """
+    monkeypatch.setenv("SHOW_TOOLS", "false")
+    session_id = client.post("/new", json={"mode": "locate", "seed": 7}).json()["session_id"]
+    client.provider.replies = [
+        Reply(tool_calls=[ToolCall(id="t1", name="check_weather", args={})]),
+        Reply(text="Mild, broken cloud."),
+    ]
+
+    body = client.post("/chat", json={"message": "weather?", "session_id": session_id}).json()
+
+    assert body["show_tool_calls"] is False
+    assert {"response", "session_id", "tool_calls"} <= set(body)
+    assert body["tool_calls"][0]["name"] == "check_weather"
+
+
+def test_the_start_screen_copy_covers_both_cases() -> None:
+    """The page promises a field log, so it needs the other wording too."""
+    page = (Path(__file__).resolve().parent.parent / "static" / "index.html").read_text()
+    assert 'id="logpitch"' in page and 'id="nologpitch"' in page
+    assert "show_tool_calls" in page

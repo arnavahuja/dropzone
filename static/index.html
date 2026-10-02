@@ -238,8 +238,10 @@
     <p class="lede">You talk to a narrator in plain language &mdash; <span style="color:var(--accent)">look around</span>,
     <span style="color:var(--accent)">walk north for ten minutes</span>, <span style="color:var(--accent)">what does the sky look like?</span>
     It answers only from real data: live weather, OpenStreetMap, sun geometry, wildlife records.</p>
-    <p class="lede" style="color:var(--dim)">The narrator does not know where you are either. Every fact it gives you comes
+    <p class="lede" style="color:var(--dim)" id="logpitch">The narrator does not know where you are either. Every fact it gives you comes
     from a tool call, and you see every call in the field log. Reading those logs <em>is</em> the game.</p>
+    <p class="lede" style="color:var(--dim);display:none" id="nologpitch">The narrator does not know where you are either. Every fact it gives you
+    comes from real data, not invention &mdash; but you will not see how it was gathered.</p>
 
     <h2>Difficulty</h2>
     <div class="diff">
@@ -319,6 +321,7 @@ const logwrap = $("logwrap"), msg = $("msg"), spin = $("spin");
 
 let sessionId = null;
 let difficulty = "easy";
+let showTools = true;
 let busy = false;
 let gameOver = false;
 const history = [];
@@ -572,7 +575,8 @@ async function send(text) {
   waiting(true);
   try {
     const data = await post("/chat", { message: text, session_id: sessionId });
-    (data.tool_calls || []).forEach(renderFieldLog);
+    if (typeof data.show_tool_calls === "boolean") showTools = data.show_tool_calls;
+    if (showTools) (data.tool_calls || []).forEach(renderFieldLog);
     if (data.response) line("narration", data.response);
     setStatus(data.status);
     const result = findResult(data.tool_calls) ||
@@ -597,6 +601,19 @@ async function fetchResult() {
 }
 
 /* ---------- wiring ---------- */
+
+(async function describeFieldLog() {
+  try {
+    const health = await (await fetch("/health")).json();
+    if (health.show_tool_calls === false) {
+      showTools = false;
+      $("logpitch").style.display = "none";
+      $("nologpitch").style.display = "";
+    }
+  } catch {
+    /* the start screen's default copy is correct when the log is on */
+  }
+})();
 
 document.querySelectorAll("button.diff-opt").forEach((button) => {
   button.onclick = () => {
