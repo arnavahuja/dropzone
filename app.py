@@ -86,7 +86,10 @@ def _get_session(session_id: str) -> GameSession:
     """Look up a session or 404."""
     session = SESSIONS.get(session_id)
     if session is None:
-        raise HTTPException(status_code=404, detail="unknown or expired session_id")
+        raise HTTPException(
+            status_code=404,
+            detail="that session is gone (expired, or the server restarted). Start a new run.",
+        )
     _touch(session_id)
     return session
 
@@ -204,9 +207,13 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 if __name__ == "__main__":
     import uvicorn
 
+    # Cloud Run injects PORT and requires the server to listen on every
+    # interface; locally neither is true, so both are overridable and the
+    # defaults stay local-only. Reload is opt-in: it forks a reloader process,
+    # which would give each worker its own session store.
     uvicorn.run(
         "app:app",
         host=os.getenv("HOST", "127.0.0.1"),
         port=int(os.getenv("PORT", "8000")),
-        reload=True,
+        reload=os.getenv("RELOAD", "").lower() in ("1", "true", "yes"),
     )

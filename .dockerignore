@@ -1,0 +1,15 @@
+.git
+.github
+.venv
+.env
+__pycache__
+*.py[cod]
+.pytest_cache
+.ruff_cache
+.DS_Store
+tests
+DROPZONE_BUILD_SPEC.md
+README.md
+Dockerfile
+.dockerignore
+.gcloudignore

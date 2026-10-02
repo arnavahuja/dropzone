@@ -35,15 +35,15 @@ def get_provider() -> LLMProvider:
     name = (os.getenv("LLM_PROVIDER") or "").strip().lower()
     if not name:
         raise ProviderError(
-            "LLM_PROVIDER is not set. Copy .env.example to .env and set "
-            f"LLM_PROVIDER to one of: {', '.join(SUPPORTED)}."
+            f"LLM_PROVIDER is not set; expected one of: {', '.join(SUPPORTED)}. "
+            "Set it in .env locally, or as an environment variable on the service."
         )
     if name not in SUPPORTED:
         raise ProviderError(f"unknown LLM_PROVIDER {name!r}; expected one of {', '.join(SUPPORTED)}")
 
     model = (os.getenv("LLM_MODEL") or "").strip()
     if not model:
-        raise ProviderError(f"LLM_MODEL is not set; pick a {name} model id in .env")
+        raise ProviderError(f"LLM_MODEL is not set; pick a {name} model id")
 
     key_var = KEY_ENV[name]
     api_key = (os.getenv(key_var) or "").strip()

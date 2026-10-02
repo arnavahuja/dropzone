@@ -1,0 +1,12 @@
+# What NOT to upload to Cloud Build. Distinct from .dockerignore: the Dockerfile
+# and the tests must reach the builder, they just don't belong in the image.
+.git
+.github
+.venv
+.env
+__pycache__
+*.py[cod]
+.pytest_cache
+.ruff_cache
+.DS_Store
+DROPZONE_BUILD_SPEC.md
