@@ -1,0 +1,66 @@
+# Test, build and deploy. Run by the Cloud Build trigger on every push to main.
+#
+# Environment variables and secrets are configured once on the Cloud Run service
+# (see README, Deploying) and carry over to each new revision, so they are
+# deliberately not set here: that keeps the API key out of this file and out of
+# the build logs.
+
+substitutions:
+  _REGION: us-central1
+  _SERVICE: dropzone
+  _AR_REPO: containers
+
+steps:
+  # The tests gate the deploy. They are fully offline, so this needs no network
+  # beyond installing dependencies.
+  - id: test
+    name: ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+    entrypoint: sh
+    args:
+      - -c
+      - uv sync --frozen --extra dev && uv run pytest -q
+
+  - id: build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/$_SERVICE:$BUILD_ID
+      - -t
+      - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/$_SERVICE:latest
+      - .
+
+  - id: push
+    name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - --all-tags
+      - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/$_SERVICE
+
+  # Deploy the exact image this build produced, not :latest, so a rollback is a
+  # matter of pointing at an earlier revision.
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - $_SERVICE
+      - --image=$_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/$_SERVICE:$BUILD_ID
+      - --region=$_REGION
+      - --platform=managed
+      - --allow-unauthenticated
+      # One instance, one worker: sessions live in the serving process's memory.
+      - --max-instances=1
+      - --timeout=300
+      - --memory=512Mi
+
+images:
+  - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/$_SERVICE:$BUILD_ID
+  - $_REGION-docker.pkg.dev/$PROJECT_ID/$_AR_REPO/$_SERVICE:latest
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8
+
+timeout: 1200s

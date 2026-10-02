@@ -148,6 +148,104 @@ do next. Tools never raise into the agent loop.
 Try also `read the nearest sign` (which chains `look_around` into `read_sign`),
 `listen for a minute`, and `where am I?` — which gets you nothing, by design.
 
+## Deploying to Cloud Run
+
+Pushes to `main` build, test and deploy automatically via the Cloud Build
+trigger defined in `cloudbuild.yaml`. The four steps are: run the test suite,
+build the image, push it to Artifact Registry, deploy a new Cloud Run revision.
+A failing test fails the build and the running revision is left alone.
+
+### One-time setup
+
+```bash
+PROJECT=$(gcloud config get-value project)
+PROJECT_NUMBER=$(gcloud projects describe "$PROJECT" --format='value(projectNumber)')
+REGION=us-central1
+
+# 1. Somewhere to keep the images.
+gcloud artifacts repositories create containers \
+  --repository-format=docker --location="$REGION"
+
+# 2. The API key, as a secret rather than an env var.
+printf 'sk-ant-...' | gcloud secrets create dropzone-llm-key --data-file=-
+gcloud secrets add-iam-policy-binding dropzone-llm-key \
+  --member="serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com" \
+  --role=roles/secretmanager.secretAccessor
+
+# 3. Let Cloud Build deploy to Cloud Run and act as the runtime service account.
+gcloud projects add-iam-policy-binding "$PROJECT" \
+  --member="serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com" \
+  --role=roles/run.admin
+gcloud projects add-iam-policy-binding "$PROJECT" \
+  --member="serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com" \
+  --role=roles/iam.serviceAccountUser
+
+# 4. First deploy by hand, to set the provider config the pipeline then inherits.
+gcloud run deploy dropzone --source . --region "$REGION" \
+  --allow-unauthenticated --max-instances 1 --timeout 300 --memory 512Mi \
+  --set-env-vars LLM_PROVIDER=anthropic,LLM_MODEL=claude-sonnet-4-5 \
+  --set-secrets ANTHROPIC_API_KEY=dropzone-llm-key:latest
+
+# 5. Connect the repo and create the trigger. The first command opens a browser
+#    to install the Cloud Build GitHub App, which cannot be done from the CLI.
+gcloud builds triggers create github \
+  --name=dropzone-main \
+  --repo-name=dropzone --repo-owner=<your-github-username> \
+  --branch-pattern='^main$' \
+  --build-config=cloudbuild.yaml \
+  --region="$REGION"
+```
+
+Step 4 matters: `cloudbuild.yaml` deliberately sets no environment variables or
+secrets, so the key never appears in a build log. Cloud Run carries those
+settings from one revision to the next, so they are set once by hand and the
+pipeline inherits them. To change the model later, deploy once with a new
+`--set-env-vars` or edit the service in the console.
+
+To change provider in production, update the service's env vars — no code
+change, no rebuild:
+
+```bash
+gcloud run services update dropzone --region "$REGION" \
+  --set-env-vars LLM_PROVIDER=gemini,LLM_MODEL=gemini-2.5-flash \
+  --set-secrets GEMINI_API_KEY=dropzone-gemini-key:latest
+```
+
+Watch a build, or roll back:
+
+```bash
+gcloud builds list --region "$REGION" --limit 5
+gcloud run revisions list --service dropzone --region "$REGION"
+gcloud run services update-traffic dropzone --region "$REGION" --to-revisions <revision>=100
+```
+
+### Why one instance
+
+`--max-instances 1` is not a cost control, it is a correctness requirement.
+Sessions live in the serving process's memory, so a second instance would not
+know about a game started on the first and the player would get "that session is
+gone" mid-run. One instance at the default concurrency of 80 serves plenty of
+simultaneous games; the ceiling only matters if this ever has to scale out, at
+which point sessions need to move to Memorystore or Firestore. The same
+reasoning is why the container runs a single uvicorn worker.
+
+Two more things to expect from a hosted deployment:
+
+- **A cold start loses in-flight games.** Cloud Run stops an idle instance and
+  its sessions go with it. `--min-instances 1` avoids that, at the cost of
+  running continuously.
+- **Overpass and Nominatim see a shared Google egress IP**, which is rate
+  limited harder than a home connection and is sometimes already throttled by
+  another tenant. Tools degrade to an error with a suggestion rather than
+  failing the turn, but `look_around` and `scan_horizon` will fail more often
+  than they do locally.
+
+After the first deploy, record the URL in `submission.json`:
+
+```json
+{"deploy_url": "https://dropzone-xxxxxxxx-uc.a.run.app", "authors": ["aa5790"]}
+```
+
 ## API
 
 - `POST /new` → `{mode, difficulty, seed?}` → `{session_id, response, tool_calls, status}`
@@ -165,6 +263,8 @@ Sessions are in-memory, keyed by UUID, isolated, and expire after 12 hours.
 ## Layout
 
 ```
+Dockerfile             container image for Cloud Run
+cloudbuild.yaml        test, build, deploy on push to main
 app.py                 FastAPI: /new, /chat, /result, /resign, /health
 dropzone/
   session.py           server-side truth and per-game state
