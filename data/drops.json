@@ -5,667 +5,1275 @@
    "lat": 51.5212,
    "lon": -0.1265,
    "setting": "city",
+   "fame": "famous",
    "label": "Bloomsbury, London, United Kingdom"
   },
   {
    "lat": 48.8422,
    "lon": 2.3503,
    "setting": "city",
-   "label": "Rue Mouffetard, Paris, France"
+   "fame": "famous",
+   "label": "Latin Quarter, Paris, France"
   },
   {
    "lat": 52.4985,
    "lon": 13.418,
    "setting": "city",
+   "fame": "famous",
    "label": "Kreuzberg, Berlin, Germany"
+  },
+  {
+   "lat": 48.13,
+   "lon": 11.58,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Ludwigsvorstadt, Munich, Germany"
   },
   {
    "lat": 38.7121,
    "lon": -9.13,
    "setting": "city",
+   "fame": "famous",
    "label": "Alfama, Lisbon, Portugal"
+  },
+  {
+   "lat": 41.15,
+   "lon": -8.615,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Ribeira, Porto, Portugal"
   },
   {
    "lat": 37.386,
    "lon": -5.9926,
    "setting": "city",
+   "fame": "famous",
    "label": "Santa Cruz, Seville, Spain"
+  },
+  {
+   "lat": 41.383,
+   "lon": 2.176,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Gracia, Barcelona, Spain"
+  },
+  {
+   "lat": 40.414,
+   "lon": -3.703,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Lavapies, Madrid, Spain"
   },
   {
    "lat": 40.851,
    "lon": 14.257,
    "setting": "city",
+   "fame": "famous",
    "label": "Spaccanapoli, Naples, Italy"
+  },
+  {
+   "lat": 41.8855,
+   "lon": 12.47,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Trastevere, Rome, Italy"
+  },
+  {
+   "lat": 45.459,
+   "lon": 9.182,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Porta Genova, Milan, Italy"
+  },
+  {
+   "lat": 45.437,
+   "lon": 12.333,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Dorsoduro, Venice, Italy"
   },
   {
    "lat": 50.0614,
    "lon": 19.9372,
    "setting": "city",
+   "fame": "famous",
    "label": "Kazimierz, Krakow, Poland"
   },
   {
-   "lat": 59.437,
-   "lon": 24.745,
+   "lat": 52.239,
+   "lon": 21.017,
    "setting": "city",
-   "label": "Old Town, Tallinn, Estonia"
+   "fame": "famous",
+   "label": "Srodmiescie, Warsaw, Poland"
   },
   {
-   "lat": 60.3958,
-   "lon": 5.3245,
-   "setting": "coast",
-   "label": "Bryggen, Bergen, Norway"
-  },
-  {
-   "lat": 47.5622,
-   "lon": 13.6493,
-   "setting": "village",
-   "label": "Hallstatt, Austria"
-  },
-  {
-   "lat": 45.9237,
-   "lon": 6.8694,
-   "setting": "trailhead",
-   "label": "Chamonix, France"
-  },
-  {
-   "lat": 44.135,
-   "lon": 9.684,
-   "setting": "coast",
-   "label": "Vernazza, Cinque Terre, Italy"
-  },
-  {
-   "lat": 52.738,
-   "lon": 6.078,
-   "setting": "farmland",
-   "label": "near Giethoorn, Netherlands"
-  },
-  {
-   "lat": 53.15,
-   "lon": -6.29,
-   "setting": "trailhead",
-   "label": "Wicklow Way, Ireland"
-  },
-  {
-   "lat": 56.676,
-   "lon": -5.103,
-   "setting": "trailhead",
-   "label": "Glencoe, Scotland"
-  },
-  {
-   "lat": 40.99,
-   "lon": 29.027,
+   "lat": 50.079,
+   "lon": 14.431,
    "setting": "city",
-   "label": "Kadikoy, Istanbul, Turkey"
-  },
-  {
-   "lat": 37.972,
-   "lon": 23.728,
-   "setting": "city",
-   "label": "Plaka, Athens, Greece"
-  },
-  {
-   "lat": 64.145,
-   "lon": -21.933,
-   "setting": "city",
-   "label": "Reykjavik, Iceland"
-  },
-  {
-   "lat": 46.057,
-   "lon": 25.092,
-   "setting": "village",
-   "label": "Viscri, Romania"
-  },
-  {
-   "lat": 48.75,
-   "lon": 30.22,
-   "setting": "farmland",
-   "label": "near Uman, Ukraine"
-  },
-  {
-   "lat": 55.676,
-   "lon": 12.568,
-   "setting": "city",
-   "label": "Indre By, Copenhagen, Denmark"
+   "fame": "famous",
+   "label": "Vinohrady, Prague, Czechia"
   },
   {
    "lat": 47.498,
    "lon": 19.059,
    "setting": "city",
+   "fame": "famous",
    "label": "Pest, Budapest, Hungary"
   },
   {
-   "lat": 43.509,
-   "lon": 16.44,
-   "setting": "coast",
-   "label": "Split, Croatia"
+   "lat": 48.198,
+   "lon": 16.366,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Wieden, Vienna, Austria"
+  },
+  {
+   "lat": 47.374,
+   "lon": 8.534,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Kreis 4, Zurich, Switzerland"
   },
   {
    "lat": 46.948,
    "lon": 7.447,
    "setting": "city",
-   "label": "Bern, Switzerland"
+   "fame": "known",
+   "label": "Altstadt, Bern, Switzerland"
+  },
+  {
+   "lat": 50.845,
+   "lon": 4.352,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Saint-Gilles, Brussels, Belgium"
+  },
+  {
+   "lat": 52.368,
+   "lon": 4.883,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Jordaan, Amsterdam, Netherlands"
+  },
+  {
+   "lat": 55.676,
+   "lon": 12.568,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Indre By, Copenhagen, Denmark"
+  },
+  {
+   "lat": 59.316,
+   "lon": 18.071,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Sodermalm, Stockholm, Sweden"
+  },
+  {
+   "lat": 60.166,
+   "lon": 24.944,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Kamppi, Helsinki, Finland"
+  },
+  {
+   "lat": 59.913,
+   "lon": 10.752,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Gronland, Oslo, Norway"
+  },
+  {
+   "lat": 60.3958,
+   "lon": 5.3245,
+   "setting": "coast",
+   "fame": "known",
+   "label": "Bryggen, Bergen, Norway"
+  },
+  {
+   "lat": 59.437,
+   "lon": 24.745,
+   "setting": "city",
+   "fame": "known",
+   "label": "Old Town, Tallinn, Estonia"
+  },
+  {
+   "lat": 56.948,
+   "lon": 24.105,
+   "setting": "city",
+   "fame": "known",
+   "label": "Centrs, Riga, Latvia"
+  },
+  {
+   "lat": 54.687,
+   "lon": 25.28,
+   "setting": "city",
+   "fame": "known",
+   "label": "Old Town, Vilnius, Lithuania"
+  },
+  {
+   "lat": 53.34,
+   "lon": -6.265,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Portobello, Dublin, Ireland"
+  },
+  {
+   "lat": 55.95,
+   "lon": -3.19,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Old Town, Edinburgh, United Kingdom"
+  },
+  {
+   "lat": 53.48,
+   "lon": -2.24,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Northern Quarter, Manchester, United Kingdom"
+  },
+  {
+   "lat": 37.972,
+   "lon": 23.728,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Plaka, Athens, Greece"
+  },
+  {
+   "lat": 40.64,
+   "lon": 22.935,
+   "setting": "city",
+   "fame": "known",
+   "label": "Ladadika, Thessaloniki, Greece"
+  },
+  {
+   "lat": 64.145,
+   "lon": -21.933,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Midborg, Reykjavik, Iceland"
+  },
+  {
+   "lat": 44.815,
+   "lon": 20.46,
+   "setting": "city",
+   "fame": "known",
+   "label": "Savamala, Belgrade, Serbia"
+  },
+  {
+   "lat": 44.43,
+   "lon": 26.103,
+   "setting": "city",
+   "fame": "known",
+   "label": "Lipscani, Bucharest, Romania"
+  },
+  {
+   "lat": 42.695,
+   "lon": 23.325,
+   "setting": "city",
+   "fame": "known",
+   "label": "Centre, Sofia, Bulgaria"
+  },
+  {
+   "lat": 43.509,
+   "lon": 16.44,
+   "setting": "coast",
+   "fame": "known",
+   "label": "Old Town, Split, Croatia"
+  },
+  {
+   "lat": 45.813,
+   "lon": 15.977,
+   "setting": "city",
+   "fame": "known",
+   "label": "Donji Grad, Zagreb, Croatia"
+  },
+  {
+   "lat": 45.9237,
+   "lon": 6.8694,
+   "setting": "city",
+   "fame": "known",
+   "label": "Chamonix Centre, Chamonix, France"
+  },
+  {
+   "lat": 43.7,
+   "lon": 7.268,
+   "setting": "coast",
+   "fame": "known",
+   "label": "Vieux Nice, Nice, France"
+  },
+  {
+   "lat": 45.758,
+   "lon": 4.832,
+   "setting": "city",
+   "fame": "known",
+   "label": "Croix-Rousse, Lyon, France"
+  },
+  {
+   "lat": 50.461,
+   "lon": 30.523,
+   "setting": "city",
+   "fame": "known",
+   "label": "Podil, Kyiv, Ukraine"
   },
   {
    "lat": 35.727,
    "lon": 139.771,
    "setting": "city",
+   "fame": "famous",
    "label": "Yanaka, Tokyo, Japan"
   },
   {
    "lat": 35.0037,
    "lon": 135.778,
    "setting": "city",
+   "fame": "famous",
    "label": "Gion, Kyoto, Japan"
   },
   {
    "lat": 34.652,
    "lon": 135.506,
    "setting": "city",
+   "fame": "famous",
    "label": "Shinsekai, Osaka, Japan"
   },
   {
-   "lat": 37.8,
-   "lon": 139.0,
-   "setting": "farmland",
-   "label": "near Niigata, Japan"
+   "lat": 43.06,
+   "lon": 141.35,
+   "setting": "city",
+   "fame": "known",
+   "label": "Susukino, Sapporo, Japan"
+  },
+  {
+   "lat": 33.59,
+   "lon": 130.4,
+   "setting": "city",
+   "fame": "known",
+   "label": "Nakasu, Fukuoka, Japan"
   },
   {
    "lat": 37.574,
    "lon": 126.99,
    "setting": "city",
+   "fame": "famous",
    "label": "Ikseon-dong, Seoul, South Korea"
   },
   {
    "lat": 35.158,
    "lon": 129.16,
    "setting": "coast",
+   "fame": "known",
    "label": "Haeundae, Busan, South Korea"
   },
   {
    "lat": 25.056,
    "lon": 121.51,
    "setting": "city",
+   "fame": "famous",
    "label": "Dadaocheng, Taipei, Taiwan"
   },
   {
    "lat": 22.286,
    "lon": 114.142,
    "setting": "city",
-   "label": "Sai Ying Pun, Hong Kong"
+   "fame": "famous",
+   "label": "Sai Ying Pun, Hong Kong, China"
+  },
+  {
+   "lat": 31.21,
+   "lon": 121.468,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Tianzifang, Shanghai, China"
+  },
+  {
+   "lat": 39.93,
+   "lon": 116.4,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Dongcheng, Beijing, China"
+  },
+  {
+   "lat": 30.654,
+   "lon": 104.076,
+   "setting": "city",
+   "fame": "known",
+   "label": "Qingyang, Chengdu, China"
+  },
+  {
+   "lat": 34.26,
+   "lon": 108.945,
+   "setting": "city",
+   "fame": "known",
+   "label": "Beilin, Xian, China"
+  },
+  {
+   "lat": 23.129,
+   "lon": 113.264,
+   "setting": "city",
+   "fame": "known",
+   "label": "Yuexiu, Guangzhou, China"
+  },
+  {
+   "lat": 26.872,
+   "lon": 100.23,
+   "setting": "city",
+   "fame": "known",
+   "label": "Old Town, Lijiang, China"
   },
   {
    "lat": 21.034,
    "lon": 105.851,
    "setting": "city",
+   "fame": "famous",
    "label": "Old Quarter, Hanoi, Vietnam"
+  },
+  {
+   "lat": 10.776,
+   "lon": 106.7,
+   "setting": "city",
+   "fame": "famous",
+   "label": "District 1, Ho Chi Minh City, Vietnam"
   },
   {
    "lat": 13.723,
    "lon": 100.488,
    "setting": "city",
+   "fame": "famous",
    "label": "Thonburi, Bangkok, Thailand"
   },
   {
    "lat": 18.788,
    "lon": 98.993,
    "setting": "city",
+   "fame": "famous",
    "label": "Old City, Chiang Mai, Thailand"
+  },
+  {
+   "lat": 11.556,
+   "lon": 104.928,
+   "setting": "city",
+   "fame": "known",
+   "label": "Daun Penh, Phnom Penh, Cambodia"
   },
   {
    "lat": 19.889,
    "lon": 102.135,
-   "setting": "village",
-   "label": "Luang Prabang, Laos"
-  },
-  {
-   "lat": -8.507,
-   "lon": 115.263,
-   "setting": "village",
-   "label": "Ubud, Bali, Indonesia"
-  },
-  {
-   "lat": 26.923,
-   "lon": 75.826,
    "setting": "city",
-   "label": "Jaipur, India"
+   "fame": "known",
+   "label": "Old Town, Luang Prabang, Laos"
   },
   {
-   "lat": 25.309,
-   "lon": 83.01,
+   "lat": 16.78,
+   "lon": 96.15,
    "setting": "city",
-   "label": "Varanasi, India"
-  },
-  {
-   "lat": 27.715,
-   "lon": 85.31,
-   "setting": "city",
-   "label": "Thamel, Kathmandu, Nepal"
-  },
-  {
-   "lat": 28.31,
-   "lon": 83.69,
-   "setting": "trailhead",
-   "label": "Nayapul, Nepal"
-  },
-  {
-   "lat": 6.927,
-   "lon": 79.861,
-   "setting": "city",
-   "label": "Colombo, Sri Lanka"
-  },
-  {
-   "lat": 7.293,
-   "lon": 80.635,
-   "setting": "village",
-   "label": "Kandy, Sri Lanka"
-  },
-  {
-   "lat": 39.654,
-   "lon": 66.975,
-   "setting": "city",
-   "label": "Samarkand, Uzbekistan"
-  },
-  {
-   "lat": 41.694,
-   "lon": 44.808,
-   "setting": "city",
-   "label": "Old Tbilisi, Georgia"
-  },
-  {
-   "lat": 40.179,
-   "lon": 44.499,
-   "setting": "city",
-   "label": "Kentron, Yerevan, Armenia"
-  },
-  {
-   "lat": 33.894,
-   "lon": 35.505,
-   "setting": "city",
-   "label": "Gemmayzeh, Beirut, Lebanon"
-  },
-  {
-   "lat": 31.951,
-   "lon": 35.934,
-   "setting": "city",
-   "label": "Downtown Amman, Jordan"
-  },
-  {
-   "lat": 31.21,
-   "lon": 121.468,
-   "setting": "city",
-   "label": "Tianzifang, Shanghai, China"
-  },
-  {
-   "lat": 30.654,
-   "lon": 104.076,
-   "setting": "city",
-   "label": "Chengdu, China"
-  },
-  {
-   "lat": 26.872,
-   "lon": 100.23,
-   "setting": "village",
-   "label": "Lijiang Old Town, China"
+   "fame": "known",
+   "label": "Pabedan, Yangon, Myanmar"
   },
   {
    "lat": 3.165,
    "lon": 101.705,
    "setting": "city",
+   "fame": "famous",
    "label": "Kampung Baru, Kuala Lumpur, Malaysia"
+  },
+  {
+   "lat": 1.3,
+   "lon": 103.85,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Kampong Glam, Singapore, Singapore"
+  },
+  {
+   "lat": -6.19,
+   "lon": 106.83,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Menteng, Jakarta, Indonesia"
+  },
+  {
+   "lat": -7.8,
+   "lon": 110.365,
+   "setting": "city",
+   "fame": "known",
+   "label": "Kraton, Yogyakarta, Indonesia"
+  },
+  {
+   "lat": -8.507,
+   "lon": 115.263,
+   "setting": "city",
+   "fame": "known",
+   "label": "Ubud, Bali, Indonesia"
   },
   {
    "lat": 14.59,
    "lon": 120.975,
    "setting": "city",
+   "fame": "famous",
    "label": "Intramuros, Manila, Philippines"
+  },
+  {
+   "lat": 10.3,
+   "lon": 123.9,
+   "setting": "city",
+   "fame": "known",
+   "label": "Downtown, Cebu City, Philippines"
+  },
+  {
+   "lat": 28.65,
+   "lon": 77.23,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Chandni Chowk, Delhi, India"
+  },
+  {
+   "lat": 19.017,
+   "lon": 72.83,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Dadar, Mumbai, India"
+  },
+  {
+   "lat": 12.972,
+   "lon": 77.6,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Shivajinagar, Bengaluru, India"
+  },
+  {
+   "lat": 22.57,
+   "lon": 88.36,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Bowbazar, Kolkata, India"
+  },
+  {
+   "lat": 13.08,
+   "lon": 80.27,
+   "setting": "city",
+   "fame": "known",
+   "label": "George Town, Chennai, India"
+  },
+  {
+   "lat": 26.923,
+   "lon": 75.826,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Pink City, Jaipur, India"
+  },
+  {
+   "lat": 25.309,
+   "lon": 83.01,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Ghats, Varanasi, India"
+  },
+  {
+   "lat": 27.715,
+   "lon": 85.31,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Thamel, Kathmandu, Nepal"
+  },
+  {
+   "lat": 6.927,
+   "lon": 79.861,
+   "setting": "city",
+   "fame": "known",
+   "label": "Fort, Colombo, Sri Lanka"
+  },
+  {
+   "lat": 7.293,
+   "lon": 80.635,
+   "setting": "city",
+   "fame": "known",
+   "label": "Kandy Central, Kandy, Sri Lanka"
+  },
+  {
+   "lat": 39.654,
+   "lon": 66.975,
+   "setting": "city",
+   "fame": "known",
+   "label": "Registan, Samarkand, Uzbekistan"
+  },
+  {
+   "lat": 41.311,
+   "lon": 69.28,
+   "setting": "city",
+   "fame": "known",
+   "label": "Chilonzor, Tashkent, Uzbekistan"
+  },
+  {
+   "lat": 43.238,
+   "lon": 76.945,
+   "setting": "city",
+   "fame": "known",
+   "label": "Almaly, Almaty, Kazakhstan"
+  },
+  {
+   "lat": 47.918,
+   "lon": 106.917,
+   "setting": "city",
+   "fame": "known",
+   "label": "Sukhbaatar, Ulaanbaatar, Mongolia"
+  },
+  {
+   "lat": 41.694,
+   "lon": 44.808,
+   "setting": "city",
+   "fame": "known",
+   "label": "Old Tbilisi, Tbilisi, Georgia"
+  },
+  {
+   "lat": 40.179,
+   "lon": 44.499,
+   "setting": "city",
+   "fame": "known",
+   "label": "Kentron, Yerevan, Armenia"
   },
   {
    "lat": 31.63,
    "lon": -7.989,
    "setting": "city",
+   "fame": "famous",
    "label": "Medina, Marrakech, Morocco"
   },
   {
    "lat": 34.065,
    "lon": -4.977,
    "setting": "city",
-   "label": "Fes el Bali, Morocco"
+   "fame": "known",
+   "label": "Fes el Bali, Fez, Morocco"
   },
   {
-   "lat": 30.06,
-   "lon": 31.22,
+   "lat": 33.59,
+   "lon": -7.61,
    "setting": "city",
-   "label": "Zamalek, Cairo, Egypt"
-  },
-  {
-   "lat": 28.508,
-   "lon": 34.513,
-   "setting": "coast",
-   "label": "Dahab, Egypt"
+   "fame": "famous",
+   "label": "Centre Ville, Casablanca, Morocco"
   },
   {
    "lat": 36.798,
    "lon": 10.171,
    "setting": "city",
-   "label": "Medina of Tunis, Tunisia"
+   "fame": "known",
+   "label": "Medina, Tunis, Tunisia"
+  },
+  {
+   "lat": 14.68,
+   "lon": -17.44,
+   "setting": "city",
+   "fame": "known",
+   "label": "Plateau, Dakar, Senegal"
   },
   {
    "lat": 5.557,
    "lon": -0.177,
    "setting": "city",
+   "fame": "known",
    "label": "Osu, Accra, Ghana"
   },
   {
    "lat": 6.51,
    "lon": 3.38,
    "setting": "city",
+   "fame": "famous",
    "label": "Yaba, Lagos, Nigeria"
+  },
+  {
+   "lat": 5.32,
+   "lon": -4.02,
+   "setting": "city",
+   "fame": "known",
+   "label": "Treichville, Abidjan, Ivory Coast"
   },
   {
    "lat": -1.265,
    "lon": 36.805,
    "setting": "city",
+   "fame": "famous",
    "label": "Westlands, Nairobi, Kenya"
+  },
+  {
+   "lat": 0.315,
+   "lon": 32.58,
+   "setting": "city",
+   "fame": "known",
+   "label": "Central, Kampala, Uganda"
+  },
+  {
+   "lat": -1.95,
+   "lon": 30.06,
+   "setting": "city",
+   "fame": "known",
+   "label": "Nyarugenge, Kigali, Rwanda"
+  },
+  {
+   "lat": -6.81,
+   "lon": 39.28,
+   "setting": "city",
+   "fame": "known",
+   "label": "Kariakoo, Dar es Salaam, Tanzania"
   },
   {
    "lat": -3.37,
    "lon": 36.69,
    "setting": "city",
-   "label": "Arusha, Tanzania"
+   "fame": "known",
+   "label": "Central, Arusha, Tanzania"
   },
   {
    "lat": -6.162,
    "lon": 39.189,
    "setting": "coast",
+   "fame": "known",
    "label": "Stone Town, Zanzibar, Tanzania"
   },
   {
    "lat": 9.03,
    "lon": 38.75,
    "setting": "city",
-   "label": "Addis Ababa, Ethiopia"
+   "fame": "known",
+   "label": "Kazanchis, Addis Ababa, Ethiopia"
   },
   {
    "lat": -33.921,
    "lon": 18.415,
    "setting": "city",
+   "fame": "famous",
    "label": "Bo-Kaap, Cape Town, South Africa"
   },
   {
-   "lat": -33.94,
-   "lon": 18.86,
-   "setting": "farmland",
-   "label": "near Stellenbosch, South Africa"
-  },
-  {
-   "lat": -33.96,
-   "lon": 18.405,
-   "setting": "trailhead",
-   "label": "Table Mountain, South Africa"
-  },
-  {
-   "lat": 14.68,
-   "lon": -17.44,
+   "lat": -26.19,
+   "lon": 28.03,
    "setting": "city",
-   "label": "Dakar, Senegal"
+   "fame": "famous",
+   "label": "Braamfontein, Johannesburg, South Africa"
   },
   {
-   "lat": 0.315,
-   "lon": 32.58,
+   "lat": -29.85,
+   "lon": 31.02,
+   "setting": "coast",
+   "fame": "known",
+   "label": "Point, Durban, South Africa"
+  },
+  {
+   "lat": -22.57,
+   "lon": 17.08,
    "setting": "city",
-   "label": "Kampala, Uganda"
+   "fame": "known",
+   "label": "Central, Windhoek, Namibia"
+  },
+  {
+   "lat": -17.83,
+   "lon": 31.05,
+   "setting": "city",
+   "fame": "known",
+   "label": "Avenues, Harare, Zimbabwe"
+  },
+  {
+   "lat": -25.969,
+   "lon": 32.573,
+   "setting": "coast",
+   "fame": "known",
+   "label": "Baixa, Maputo, Mozambique"
   },
   {
    "lat": -18.91,
    "lon": 47.53,
    "setting": "city",
-   "label": "Antananarivo, Madagascar"
+   "fame": "known",
+   "label": "Analakely, Antananarivo, Madagascar"
   },
   {
    "lat": 40.764,
    "lon": -73.923,
    "setting": "city",
-   "label": "Astoria, New York, USA"
+   "fame": "famous",
+   "label": "Astoria, New York, United States"
   },
   {
    "lat": 42.365,
    "lon": -71.054,
    "setting": "city",
-   "label": "North End, Boston, USA"
+   "fame": "famous",
+   "label": "North End, Boston, United States"
   },
   {
-   "lat": 45.525,
-   "lon": -73.58,
+   "lat": 39.95,
+   "lon": -75.16,
    "setting": "city",
-   "label": "Plateau, Montreal, Canada"
+   "fame": "famous",
+   "label": "Northern Liberties, Philadelphia, United States"
   },
   {
-   "lat": 46.7,
-   "lon": -71.3,
-   "setting": "farmland",
-   "label": "near Quebec City, Canada"
+   "lat": 38.91,
+   "lon": -77.03,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Shaw, Washington, United States"
   },
   {
    "lat": 41.857,
    "lon": -87.656,
    "setting": "city",
-   "label": "Pilsen, Chicago, USA"
+   "fame": "famous",
+   "label": "Pilsen, Chicago, United States"
+  },
+  {
+   "lat": 42.34,
+   "lon": -83.06,
+   "setting": "city",
+   "fame": "known",
+   "label": "Midtown, Detroit, United States"
+  },
+  {
+   "lat": 44.949,
+   "lon": -93.265,
+   "setting": "city",
+   "fame": "known",
+   "label": "Northeast, Minneapolis, United States"
   },
   {
    "lat": 29.964,
    "lon": -90.054,
    "setting": "city",
-   "label": "Marigny, New Orleans, USA"
+   "fame": "famous",
+   "label": "Marigny, New Orleans, United States"
+  },
+  {
+   "lat": 30.265,
+   "lon": -97.74,
+   "setting": "city",
+   "fame": "famous",
+   "label": "East Austin, Austin, United States"
+  },
+  {
+   "lat": 25.79,
+   "lon": -80.19,
+   "setting": "coast",
+   "fame": "famous",
+   "label": "Little Havana, Miami, United States"
+  },
+  {
+   "lat": 36.16,
+   "lon": -86.78,
+   "setting": "city",
+   "fame": "known",
+   "label": "The Gulch, Nashville, United States"
+  },
+  {
+   "lat": 39.75,
+   "lon": -104.99,
+   "setting": "city",
+   "fame": "known",
+   "label": "LoDo, Denver, United States"
   },
   {
    "lat": 37.759,
    "lon": -122.419,
    "setting": "city",
-   "label": "Mission District, San Francisco, USA"
+   "fame": "famous",
+   "label": "Mission District, San Francisco, United States"
+  },
+  {
+   "lat": 34.09,
+   "lon": -118.27,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Echo Park, Los Angeles, United States"
+  },
+  {
+   "lat": 32.718,
+   "lon": -117.16,
+   "setting": "coast",
+   "fame": "known",
+   "label": "East Village, San Diego, United States"
+  },
+  {
+   "lat": 47.615,
+   "lon": -122.33,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Capitol Hill, Seattle, United States"
   },
   {
    "lat": 45.523,
    "lon": -122.656,
    "setting": "city",
-   "label": "Portland, Oregon, USA"
-  },
-  {
-   "lat": 39.325,
-   "lon": -77.739,
-   "setting": "trailhead",
-   "label": "Harpers Ferry, West Virginia, USA"
-  },
-  {
-   "lat": 38.573,
-   "lon": -109.55,
-   "setting": "trailhead",
-   "label": "Moab, Utah, USA"
-  },
-  {
-   "lat": 41.88,
-   "lon": -93.6,
-   "setting": "farmland",
-   "label": "central Iowa, USA"
+   "fame": "famous",
+   "label": "Pearl District, Portland, United States"
   },
   {
    "lat": 49.27,
    "lon": -123.07,
    "setting": "city",
+   "fame": "famous",
    "label": "Commercial Drive, Vancouver, Canada"
+  },
+  {
+   "lat": 45.525,
+   "lon": -73.58,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Plateau, Montreal, Canada"
+  },
+  {
+   "lat": 43.654,
+   "lon": -79.4,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Kensington Market, Toronto, Canada"
+  },
+  {
+   "lat": 51.045,
+   "lon": -114.065,
+   "setting": "city",
+   "fame": "known",
+   "label": "Beltline, Calgary, Canada"
+  },
+  {
+   "lat": 46.813,
+   "lon": -71.215,
+   "setting": "city",
+   "fame": "known",
+   "label": "Vieux-Quebec, Quebec City, Canada"
   },
   {
    "lat": 19.35,
    "lon": -99.162,
    "setting": "city",
+   "fame": "famous",
    "label": "Coyoacan, Mexico City, Mexico"
+  },
+  {
+   "lat": 20.676,
+   "lon": -103.35,
+   "setting": "city",
+   "fame": "known",
+   "label": "Centro, Guadalajara, Mexico"
+  },
+  {
+   "lat": 25.67,
+   "lon": -100.31,
+   "setting": "city",
+   "fame": "known",
+   "label": "Centro, Monterrey, Mexico"
   },
   {
    "lat": 17.062,
    "lon": -96.726,
    "setting": "city",
-   "label": "Oaxaca de Juarez, Mexico"
+   "fame": "known",
+   "label": "Centro, Oaxaca, Mexico"
   },
   {
    "lat": 21.018,
    "lon": -101.256,
    "setting": "city",
-   "label": "Guanajuato, Mexico"
+   "fame": "known",
+   "label": "Centro, Guanajuato, Mexico"
+  },
+  {
+   "lat": 20.967,
+   "lon": -89.623,
+   "setting": "city",
+   "fame": "known",
+   "label": "Centro, Merida, Mexico"
   },
   {
    "lat": 14.557,
    "lon": -90.734,
-   "setting": "village",
-   "label": "Antigua Guatemala, Guatemala"
+   "setting": "city",
+   "fame": "known",
+   "label": "Centro, Antigua Guatemala, Guatemala"
+  },
+  {
+   "lat": 8.98,
+   "lon": -79.52,
+   "setting": "coast",
+   "fame": "known",
+   "label": "Casco Viejo, Panama City, Panama"
+  },
+  {
+   "lat": 9.933,
+   "lon": -84.08,
+   "setting": "city",
+   "fame": "known",
+   "label": "Barrio Escalante, San Jose, Costa Rica"
   },
   {
    "lat": 23.134,
    "lon": -82.386,
    "setting": "city",
+   "fame": "famous",
    "label": "Vedado, Havana, Cuba"
+  },
+  {
+   "lat": 18.47,
+   "lon": -69.89,
+   "setting": "coast",
+   "fame": "known",
+   "label": "Zona Colonial, Santo Domingo, Dominican Republic"
   },
   {
    "lat": 10.423,
    "lon": -75.549,
    "setting": "coast",
-   "label": "Cartagena, Colombia"
+   "fame": "known",
+   "label": "Getsemani, Cartagena, Colombia"
   },
   {
    "lat": 4.596,
    "lon": -74.073,
    "setting": "city",
+   "fame": "famous",
    "label": "La Candelaria, Bogota, Colombia"
+  },
+  {
+   "lat": 6.245,
+   "lon": -75.58,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Laureles, Medellin, Colombia"
   },
   {
    "lat": -0.22,
    "lon": -78.512,
    "setting": "city",
+   "fame": "known",
    "label": "Old Town, Quito, Ecuador"
+  },
+  {
+   "lat": -2.19,
+   "lon": -79.887,
+   "setting": "city",
+   "fame": "known",
+   "label": "Centro, Guayaquil, Ecuador"
   },
   {
    "lat": -13.517,
    "lon": -71.978,
    "setting": "city",
-   "label": "Cusco, Peru"
+   "fame": "famous",
+   "label": "Centro, Cusco, Peru"
   },
   {
    "lat": -12.148,
    "lon": -77.022,
    "setting": "coast",
+   "fame": "famous",
    "label": "Barranco, Lima, Peru"
+  },
+  {
+   "lat": -16.4,
+   "lon": -71.535,
+   "setting": "city",
+   "fame": "known",
+   "label": "Centro, Arequipa, Peru"
   },
   {
    "lat": -16.496,
    "lon": -68.133,
    "setting": "city",
-   "label": "La Paz, Bolivia"
+   "fame": "known",
+   "label": "Centro, La Paz, Bolivia"
+  },
+  {
+   "lat": -33.438,
+   "lon": -70.65,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Bellavista, Santiago, Chile"
   },
   {
    "lat": -33.045,
    "lon": -71.62,
    "setting": "coast",
-   "label": "Valparaiso, Chile"
+   "fame": "known",
+   "label": "Cerro Alegre, Valparaiso, Chile"
   },
   {
    "lat": -34.621,
    "lon": -58.372,
    "setting": "city",
+   "fame": "famous",
    "label": "San Telmo, Buenos Aires, Argentina"
   },
   {
-   "lat": -32.99,
-   "lon": -68.85,
-   "setting": "farmland",
-   "label": "Maipu, Mendoza, Argentina"
+   "lat": -31.42,
+   "lon": -64.185,
+   "setting": "city",
+   "fame": "known",
+   "label": "Nueva Cordoba, Cordoba, Argentina"
   },
   {
-   "lat": -34.89,
-   "lon": -60.02,
-   "setting": "farmland",
-   "label": "near Chivilcoy, Argentina"
+   "lat": -32.89,
+   "lon": -68.845,
+   "setting": "city",
+   "fame": "known",
+   "label": "Centro, Mendoza, Argentina"
   },
   {
    "lat": -34.908,
    "lon": -56.187,
    "setting": "coast",
+   "fame": "known",
    "label": "Ciudad Vieja, Montevideo, Uruguay"
   },
   {
-   "lat": -23.22,
-   "lon": -44.715,
-   "setting": "village",
-   "label": "Paraty, Brazil"
+   "lat": -25.29,
+   "lon": -57.635,
+   "setting": "city",
+   "fame": "known",
+   "label": "Centro, Asuncion, Paraguay"
   },
   {
    "lat": -23.549,
    "lon": -46.69,
    "setting": "city",
+   "fame": "famous",
    "label": "Vila Madalena, Sao Paulo, Brazil"
+  },
+  {
+   "lat": -22.968,
+   "lon": -43.186,
+   "setting": "coast",
+   "fame": "famous",
+   "label": "Copacabana, Rio de Janeiro, Brazil"
   },
   {
    "lat": -12.971,
    "lon": -38.51,
    "setting": "city",
+   "fame": "famous",
    "label": "Pelourinho, Salvador, Brazil"
+  },
+  {
+   "lat": -25.43,
+   "lon": -49.27,
+   "setting": "city",
+   "fame": "known",
+   "label": "Centro, Curitiba, Brazil"
+  },
+  {
+   "lat": -19.92,
+   "lon": -43.94,
+   "setting": "city",
+   "fame": "known",
+   "label": "Savassi, Belo Horizonte, Brazil"
+  },
+  {
+   "lat": -8.058,
+   "lon": -34.882,
+   "setting": "coast",
+   "fame": "known",
+   "label": "Recife Antigo, Recife, Brazil"
+  },
+  {
+   "lat": -30.03,
+   "lon": -51.22,
+   "setting": "city",
+   "fame": "known",
+   "label": "Cidade Baixa, Porto Alegre, Brazil"
+  },
+  {
+   "lat": -23.22,
+   "lon": -44.715,
+   "setting": "coast",
+   "fame": "known",
+   "label": "Centro Historico, Paraty, Brazil"
   },
   {
    "lat": -33.897,
    "lon": 151.179,
    "setting": "city",
+   "fame": "famous",
    "label": "Newtown, Sydney, Australia"
   },
   {
    "lat": -37.798,
    "lon": 144.978,
    "setting": "city",
+   "fame": "famous",
    "label": "Fitzroy, Melbourne, Australia"
+  },
+  {
+   "lat": -27.47,
+   "lon": 153.02,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Fortitude Valley, Brisbane, Australia"
+  },
+  {
+   "lat": -31.95,
+   "lon": 115.86,
+   "setting": "city",
+   "fame": "famous",
+   "label": "Northbridge, Perth, Australia"
+  },
+  {
+   "lat": -34.925,
+   "lon": 138.6,
+   "setting": "city",
+   "fame": "known",
+   "label": "Adelaide CBD, Adelaide, Australia"
   },
   {
    "lat": -42.883,
    "lon": 147.329,
    "setting": "city",
-   "label": "Hobart, Tasmania, Australia"
+   "fame": "known",
+   "label": "Battery Point, Hobart, Australia"
   },
   {
-   "lat": -34.95,
-   "lon": 138.75,
-   "setting": "farmland",
-   "label": "Adelaide Hills, Australia"
+   "lat": -12.46,
+   "lon": 130.84,
+   "setting": "coast",
+   "fame": "known",
+   "label": "Darwin City, Darwin, Australia"
   },
   {
    "lat": -28.643,
    "lon": 153.612,
    "setting": "coast",
-   "label": "Byron Bay, Australia"
+   "fame": "known",
+   "label": "Byron Bay Town Centre, Byron Bay, Australia"
   },
   {
    "lat": -41.293,
    "lon": 174.778,
    "setting": "city",
+   "fame": "famous",
    "label": "Te Aro, Wellington, New Zealand"
   },
   {
    "lat": -36.854,
    "lon": 174.745,
    "setting": "city",
+   "fame": "famous",
    "label": "Ponsonby, Auckland, New Zealand"
+  },
+  {
+   "lat": -43.53,
+   "lon": 172.63,
+   "setting": "city",
+   "fame": "known",
+   "label": "Christchurch Central, Christchurch, New Zealand"
   },
   {
    "lat": -45.031,
    "lon": 168.662,
-   "setting": "village",
-   "label": "Queenstown, New Zealand"
-  },
-  {
-   "lat": -39.17,
-   "lon": 175.59,
-   "setting": "trailhead",
-   "label": "Tongariro, New Zealand"
+   "setting": "city",
+   "fame": "known",
+   "label": "Queenstown Central, Queenstown, New Zealand"
   },
   {
    "lat": -18.142,
    "lon": 178.442,
-   "setting": "city",
-   "label": "Suva, Fiji"
+   "setting": "coast",
+   "fame": "known",
+   "label": "Central Suva, Suva, Fiji"
   }
  ]
 }
