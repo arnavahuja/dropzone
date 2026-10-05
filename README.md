@@ -42,7 +42,7 @@ not appear.
 Switching provider is an `.env` edit and a restart. No model name is hardcoded
 anywhere in the code, and a test enforces that.
 
-Run the tests (136 of them, all offline, no API keys, no network):
+Run the tests (143 of them, all offline, no API keys, no network):
 
 ```bash
 uv run pytest
@@ -55,6 +55,12 @@ uv run pytest
 | **Locate** | Work out where you are. 3 guesses. | Best guess, plus time left |
 | **Escape** | Reach an extraction point 2–5 km away. | Arrival, plus time left |
 | **Expedition** | Both. | Both, out of 2000 |
+
+A run ends the moment its objectives are met — a correct guess ends a Locate run
+on the spot, rather than making you spend the other two — and the unused guesses
+and leftover time both count in your favour. It also ends when the clock runs
+out or the third guess is spent. Either way the server scores it and the result
+screen shows the breakdown and the revealed location.
 
 ## Difficulty
 
@@ -294,7 +300,7 @@ dropzone/
   providers/           one adapter per LLM provider behind a shared interface
 data/drops.json        182 curated city drop points (server-only)
 static/index.html      the field terminal, one file, no build
-tests/                 136 tests, fully offline
+tests/                 143 tests, fully offline
 ```
 
 The agent loop is a plain loop over plain functions. No agent framework. It caps

@@ -478,9 +478,9 @@ def test_submit_guess_grades_the_same_guess_against_the_difficulty() -> None:
     assert god_guess["verdict"] == "close enough to count"
     assert "neighbourhood" in god_guess["answer_must"]
 
-    # Porto is 275 km out: the wrong answer at any precision.
-    assert call(easy, "submit_guess", place_name="Porto")["verdict"] \
-        == call(god, "submit_guess", place_name="Porto")["verdict"] \
+    # Porto is 275 km out: the wrong answer at any precision. Fresh sessions,
+    # because a correct guess has already ended the two above.
+    assert call(make_session(mode="locate"), "submit_guess", place_name="Porto")["verdict"] \
         == "the right country, roughly"
 
 
@@ -553,3 +553,57 @@ def test_all_fourteen_tools_are_registered() -> None:
         "spot_wildlife", "inspect_road", "listen", "greet_local", "scan_horizon",
         "move", "radio_check", "check_status", "submit_guess",
     }
+
+
+def test_a_correct_guess_ends_a_locate_run_immediately() -> None:
+    """The run is over when the player is right, not when they run out of tries."""
+    session = make_session(mode="locate")
+    result = call(session, "submit_guess", place_name="Lisbon")
+
+    assert result["final"] is True
+    assert result["result"]["outcome"] == "success"
+    assert result["result"]["reason"] == "guessed_correctly"
+    assert session.game_over is True
+    # Two guesses were still in hand, and the unused time still scores.
+    assert result["result"]["guesses_made"] == ["Lisbon"]
+    assert session.guesses_left() == 2
+    assert result["result"]["score_breakdown"]["time_remaining"] > 150
+    # And nothing further is playable.
+    assert "game is over" in call(session, "look_around")["error"]
+
+
+def test_a_wrong_guess_leaves_a_locate_run_going() -> None:
+    session = make_session(mode="locate")
+    result = call(session, "submit_guess", place_name="Porto")
+
+    assert "final" not in result
+    assert session.game_over is False
+    assert session.guesses_left() == 2
+
+
+def test_a_correct_guess_alone_does_not_end_an_expedition() -> None:
+    """Expedition wants both: being right is only half the job."""
+    session = make_session(mode="expedition")
+    result = call(session, "submit_guess", place_name="Lisbon")
+
+    assert "final" not in result
+    assert session.located is True
+    assert session.game_over is False
+    # Walking to the pickup is what finishes it.
+    assert "features_found" in call(session, "look_around")
+
+
+def test_god_mode_does_not_end_on_a_city_level_guess() -> None:
+    session = make_session(mode="locate")
+    session.difficulty = "god"
+    result = call(session, "submit_guess", place_name="Lisbon")
+
+    # 1.4 km away: inside god mode's 3 km, so this one does win.
+    assert result["final"] is True
+    assert result["result"]["outcome"] == "success"
+
+    # Porto, 275 km out, does not.
+    other = make_session(mode="locate")
+    other.difficulty = "god"
+    assert "final" not in call(other, "submit_guess", place_name="Porto")
+    assert other.game_over is False

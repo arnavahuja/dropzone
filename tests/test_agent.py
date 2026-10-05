@@ -11,7 +11,7 @@ import app as app_module
 from dropzone import agent, game, tools
 from dropzone.providers import ProviderError
 from dropzone.providers.base import Reply, ToolCall
-from tests.conftest import make_session, run
+from tests.conftest import TRUE_LAT, TRUE_LON, make_session, run
 
 pytestmark = pytest.mark.usefixtures("offline")
 
@@ -487,3 +487,61 @@ def test_the_start_screen_copy_covers_both_cases() -> None:
     page = (Path(__file__).resolve().parent.parent / "static" / "index.html").read_text()
     assert 'id="logpitch"' in page and 'id="nologpitch"' in page
     assert "show_tool_calls" in page
+
+
+# --- ending the run --------------------------------------------------------
+
+
+def test_a_winning_guess_ends_the_run_over_http(client) -> None:
+    """The end screen is driven by this payload, so it has to arrive on the turn.
+
+    The frontend looks for `result` inside a tool call's result and falls back to
+    /result when status says the game is over. Both are checked here.
+    """
+    session_id = client.post("/new", json={"mode": "locate", "seed": 7}).json()["session_id"]
+    # Move the drop onto a city the stubbed geocoder knows, so the guess resolves.
+    session = app_module.SESSIONS[session_id]
+    session.true_lat = session.drop_lat = TRUE_LAT
+    session.true_lon = session.drop_lon = TRUE_LON
+
+    client.provider.replies = [
+        Reply(tool_calls=[ToolCall(id="t1", name="submit_guess", args={"place_name": "Lisbon"})]),
+        Reply(text="You were right. The radio goes quiet."),
+    ]
+    body = client.post("/chat", json={"message": "I guess Lisbon", "session_id": session_id}).json()
+
+    inline = body["tool_calls"][0]["result"]["result"]
+    assert inline["outcome"] == "success"
+    assert inline["reason"] == "guessed_correctly"
+    assert inline["true_location"]
+    assert inline["score"] > 0
+    assert body["status"]["game_over"] is True
+
+    # The fallback path serves the same payload.
+    assert client.post("/result", json={"session_id": session_id}).json()["result"] == inline
+
+
+def test_reaching_extraction_ends_an_escape_run_over_http(client) -> None:
+    """Escape ends on arrival, and the result is fetchable for the end screen."""
+    session_id = client.post("/new", json={"mode": "escape", "seed": 7}).json()["session_id"]
+    session = app_module.SESSIONS[session_id]
+    session.extraction_lat = session.true_lat + 0.0005   # a few dozen metres north
+    session.extraction_lon = session.true_lon
+
+    client.provider.replies = [
+        Reply(tool_calls=[ToolCall(id="t1", name="move", args={"direction": "north", "distance_m": 60})]),
+        Reply(text="A windsock, and the smell of fuel."),
+    ]
+    client.post("/chat", json={"message": "walk north", "session_id": session_id})
+
+    result = client.post("/result", json={"session_id": session_id}).json()["result"]
+    assert result["outcome"] == "success"
+    assert result["extraction_reached"] is True
+    assert result["true_location"]
+
+
+def test_the_end_screen_reads_both_paths() -> None:
+    page = (Path(__file__).resolve().parent.parent / "static" / "index.html").read_text()
+    # Inline result from a tool call, and the /result fallback.
+    assert "findResult" in page and "fetchResult" in page
+    assert "showEnd" in page

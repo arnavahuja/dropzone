@@ -1128,7 +1128,12 @@ async def submit_guess(session: GameSession, place_name: str) -> dict[str, Any]:
         "guesses_left": session.guesses_left(),
     }
 
-    if session.guesses_left() <= 0:
+    if session.objectives_met():
+        result["final"] = True
+        result["result"] = scoring.finalise(
+            session, "objectives_complete" if session.mode == "expedition" else "guessed_correctly"
+        )
+    elif session.guesses_left() <= 0:
         result["final"] = True
         result["result"] = scoring.finalise(session, "guesses_spent")
     return result

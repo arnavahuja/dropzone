@@ -200,6 +200,24 @@ class GameSession:
         distances = [g.distance_m for g in self.guesses if g.distance_m is not None]
         return min(distances) if distances else None
 
+    @property
+    def located(self) -> bool:
+        """True once a guess has landed inside this difficulty's win radius."""
+        best = self.best_guess_distance_m()
+        return best is not None and best <= self.precision["win_m"]
+
+    def objectives_met(self) -> bool:
+        """True when every objective this mode sets has been achieved.
+
+        Guessing right ends a Locate run on the spot. An Expedition still needs
+        the pickup, so a correct guess there is only half of it.
+        """
+        if self.mode == "locate":
+            return self.located
+        if self.mode == "escape":
+            return self.extraction_reached
+        return self.extraction_reached and self.located
+
     def status(self) -> dict[str, Any]:
         """The status block shared by the HTTP response and `check_status`.
 

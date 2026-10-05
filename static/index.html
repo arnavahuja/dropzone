@@ -499,6 +499,8 @@ function showEnd(result) {
   msg.disabled = true;
   msg.placeholder = "run complete";
   const won = result.outcome === "success";
+  /* A Locate run is won by naming the place, not by being picked up. */
+  const headline = !won ? "RUN ENDED" : result.mode === "locate" ? "LOCATED" : "EXTRACTED";
   const rows = [
     ["mode", result.mode || ($("st-mode").textContent.replace("mode", "").trim())],
     ["difficulty", result.mode === "escape" ? "" : result.difficulty],
@@ -514,7 +516,7 @@ function showEnd(result) {
   ].filter(([, v]) => v !== undefined && v !== null && v !== "");
 
   $("overinner").innerHTML = `
-    <p class="verdict ${won ? "win" : "lose"}">${won ? "EXTRACTED" : "RUN ENDED"}</p>
+    <p class="verdict ${won ? "win" : "lose"}">${headline}</p>
     <p style="color:var(--dim);margin:0">You were in</p>
     <p class="reveal" style="font-size:18px;margin:2px 0 0">${esc(result.true_location)}</p>
     <p class="score">${esc(result.score)}<span style="font-size:14px;color:var(--dim)"> points</span></p>

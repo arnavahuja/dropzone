@@ -114,14 +114,18 @@ def _check_end(session: GameSession) -> dict[str, Any] | None:
         return None
     if session.out_of_time():
         return scoring.finalise(session, "out_of_time")
-    if session.mode == "escape" and session.extraction_reached:
-        return scoring.finalise(session, "extracted")
+    if session.objectives_met():
+        return scoring.finalise(
+            session, "objectives_complete" if session.mode == "expedition" else "extracted"
+        )
+    # An Expedition that reaches the pickup with no guesses left is finished too,
+    # just not successfully.
     if (
         session.mode == "expedition"
         and session.extraction_reached
         and session.guesses_left() <= 0
     ):
-        return scoring.finalise(session, "extracted")
+        return scoring.finalise(session, "guesses_spent")
     return None
 
 
